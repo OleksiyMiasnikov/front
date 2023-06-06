@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="table">
+    <div class="table-header">
+      <div class="header__item">
+        <a id="datetime" class="filter__link" href="#"> Datetime </a>
+      </div>
+      <div class="header__item">
+        <a id="title" class="filter__link filter__link--number" href="#">
+          Title
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="tags" class="filter__link filter__link--number" href="#">
+          Tags
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="description" class="filter__link filter__link--number" href="#">
+          Description
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="price" class="filter__link filter__link--number" href="#">
+          Price
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="actions" class="filter__link filter__link--number" href="#">
+          Actions
+        </a>
+      </div>
+    </div>
+    <div class="table-content" *ngFor="let item of certificates">
+      <div class="table-row">
+        <div class="table-data">{{ item.createDate }}</div>
+        <div class="table-data">{{ item.name }}</div>
+        <div class="table-data">{{ item.id }}</div>
+        <div class="table-data">{{ item.description }}</div>
+        <div class="table-data">{{ item.price }}</div>
+        <div class="table-data">
+          <button class="bt view">View</button>
+          <button class="bt edit">Edit</button>
+          <button class="bt delete">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

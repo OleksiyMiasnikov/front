@@ -1,1 +1,141 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+$bt-color: #04aa6d;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: rgb(224, 223, 223);
+  overflow: hidden;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.wrapper {
+  width: 100%;
+  background: #ffffffa0;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .title {
+  height: 40px;
+  background: #979998bb;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 40px;
+}
+
+.wrapper form .row {
+  height: 35px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.wrapper form .row input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 20px;
+}
+
+form .row input:focus {
+  border-color: black;
+  box-shadow: inset 0px 0px 2px 2px rgba(102, 102, 102, 0.25);
+}
+
+form .row input::placeholder {
+  color: rgb(153, 153, 153);
+}
+
+.wrapper form .button input {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  background: $bt-color;
+  border: 1px solid #a7a8a8;
+  cursor: pointer;
+}
+
+form .button input:hover {
+  background: #047e51;
+}
+
+.wrapper form .button .cancel-button {
+  background-color: #ffffffa0;
+  color: black;
+}
+
+.wrapper form .button .cancel-button:hover {
+  background-color: #e9e9e6d0;
+}
+
+.navbar {
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+  height: 3rem;
+
+  &.main {
+    justify-content: center;
+    border-bottom: 1px solid var(--dark-color);
+  }
+
+  ul {
+    display: flex;
+    list-style-type: none;
+  }
+
+  li.active a {
+    color: black;
+    font-weight: bold;
+    cursor: default;
+    opacity: 1;
+  }
+
+  a {
+    color: black;
+    padding: 0.45rem;
+    margin: 0 0.25rem;
+    opacity: 0.7;
+
+    &:hover {
+      color: var(--light-color);
+      opacity: 1;
+    }
+  }
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: lightgray;
+  color: darkgray;
+  text-align: center;
+  font-weight: bold;
+}

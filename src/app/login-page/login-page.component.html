@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="wrapper">
+    <img class="logo" src="assets/img/logo.png" alt="Logo" />
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <input formControlName="username" placeholder="username" />
+      </div>
+      <div class="row">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="password"
+        />
+      </div>
+      <div class="row button">
+        <input type="submit" value="Login" />
+      </div>
+    </form>
+  </div>
+</div>

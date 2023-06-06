@@ -1,0 +1,30 @@
+<!-- header for 'login' && 'signup' pages -->
+<div *ngIf="hasRoute('login') || hasRoute('signup')">
+  <nav class="navbar">
+    <h2>Rest API</h2>
+    <ul>
+      <li routerLinkActive="active">
+        <a [routerLink]="['/login']">Login</a>
+      </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['/signup']">Sign Up</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- common header -->
+<div *ngIf="!hasRoute('login') && !hasRoute('signup')">
+  <nav class="navbar">
+    <app-menu-icons></app-menu-icons>
+    <h2>Rest API</h2>
+    <h3>User: {{ getUser() }}</h3>
+    <ul>
+      <li routerLinkActive="active">
+        <a href="#" (click)="logout($event)">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<router-outlet></router-outlet>
