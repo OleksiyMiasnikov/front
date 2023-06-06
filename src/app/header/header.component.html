@@ -16,14 +16,20 @@
 <!-- common header -->
 <div *ngIf="!hasRoute('login') && !hasRoute('signup')">
   <nav class="navbar">
-    <app-menu-icons></app-menu-icons>
-    <h2>Rest API</h2>
-    <h3>User: {{ getUser() }}</h3>
-    <ul>
-      <li routerLinkActive="active">
-        <a href="#" (click)="logout($event)">Logout</a>
-      </li>
-    </ul>
+    <div class="left_side">
+      <div class="header_item">Rest API</div>
+      <div class="header_item">
+        <button>Add new</button>
+      </div>
+    </div>
+    <div class="right_side">
+      <div class="header_item">User: {{ getUser() }}</div>
+      <ul class="header_item">
+        <li routerLinkActive="active">
+          <a href="#" (click)="logout($event)">Logout</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
 

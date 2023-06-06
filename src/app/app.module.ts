@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { TokenInterceptorService } from './shared/token-interceptor.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TokenInterceptorService } from './shared/token-interceptor.service';
     HttpClientModule,
     MenuIconsComponent,
     BrowserAnimationsModule,
+    ScrollingModule,
   ],
 })
 export class AppModule {}
