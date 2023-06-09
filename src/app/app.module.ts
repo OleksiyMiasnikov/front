@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { TokenInterceptorService } from './shared/token-interceptor.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     HeaderComponent,
     FooterComponent,
     CertificatesComponent,
+    PaginationComponent,
   ],
   providers: [
     {

@@ -22,8 +22,6 @@ export class TokenInterceptorService implements HttpInterceptor {
         Authorization: 'Bearer ' + accessToken,
       },
     });
-    console.log('--->' + jwttoken);
-    console.log('--->' + accessToken);
     return next.handle(jwttoken);
   }
 }

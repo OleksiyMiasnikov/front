@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Certificate } from '../certificate';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +11,9 @@ export class CertificatesService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any> {
-    return this.http.get<Certificate[]>(`${environment.appUrl}/certificates`);
+  getAll(page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${environment.appUrl}/certificates`, {
+      params: new HttpParams().set('page', page).set('size', size),
+    });
   }
 }

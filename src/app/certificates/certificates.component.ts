@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Certificate } from '../certificate';
+import { CertificatesService } from '../shared/certificates.service';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-certificates',
@@ -10,13 +10,22 @@ import { Certificate } from '../certificate';
 })
 export class CertificatesComponent implements OnInit {
   certificates: Certificate[] = [];
+  link = '/certificates';
+  currentPage = 1;
+  totalPages = 25;
+  size = 10;
 
-  constructor(private http: HttpClient) {}
+  constructor(private service: CertificatesService) {}
 
   ngOnInit(): void {
-    console.log('Init');
-    this.http
-      .get<Certificate[]>(`${environment.appUrl}/certificates`)
-      .subscribe((data: any) => (this.certificates = data['content']));
+    this.service.getAll(this.currentPage, this.size).subscribe((data: any) => {
+      this.certificates = data['content'];
+      this.totalPages = data.totalPages;
+    });
+  }
+
+  onPageChange(page: number): void {
+    console.log(`Page changed to ${page} of ${this.totalPages}.`);
+    this.currentPage = page;
   }
 }

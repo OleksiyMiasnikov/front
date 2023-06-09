@@ -48,4 +48,12 @@
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [link]="link"
+    (changePage)="onPageChange(currentPage + 1)"
+  >
+  </app-pagination>
+  <p>current page is {{ currentPage }}</p>
 </div>
