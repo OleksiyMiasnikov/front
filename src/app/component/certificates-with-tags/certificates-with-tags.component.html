@@ -56,13 +56,10 @@
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
-  <app-pagination
-    [currentPage]="currentPage"
-    [totalPages]="totalPages"
-    [link]="link"
-    (changedPage)="onPageChange($event)"
-  >
-  </app-pagination>
-  <p>current page is {{ currentPage }}</p>
+  <mat-paginator
+    [length]="total"
+    [pageSize]="10"
+    [pageSizeOptions]="[10,20,50]">
+  </mat-paginator>
 </div>
 

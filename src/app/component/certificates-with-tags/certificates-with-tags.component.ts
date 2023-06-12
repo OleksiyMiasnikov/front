@@ -1,30 +1,42 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {GetAllService} from "../../service/get-all.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
+import {MatPaginator} from "@angular/material/paginator";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-certificates-with-tags',
   templateUrl: './certificates-with-tags.component.html',
   styleUrls: ['./certificates-with-tags.component.scss']
 })
-export class CertificatesWithTagsComponent implements OnInit{
+export class CertificatesWithTagsComponent implements OnInit, AfterViewInit{
+
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator = <MatPaginator>{};
   certificates: CertificateWithTags[] = [];
   link = '/certificates_with_tags';
-  currentPage = 0;
-  changedPage = 0;
-  totalPages = 25;
-  size = 10;
+  total: number = 0;
 
   constructor(private service: GetAllService) {}
+
   ngOnInit(): void {
-    this.service.getAll(this.link, this.currentPage, this.size).subscribe((data: any) => {
-      this.certificates = data['content'];
-      this.totalPages = data.totalPages;
+    this.service.getAll(
+      this.link,
+      this.paginator?.pageIndex ?? 0,
+      this.paginator?.pageSize ?? 10
+    )
+      .subscribe(
+        (data: any) => {
+          this.certificates = data['content'];
+          this.total = data.totalElements;
     });
   }
 
-  onPageChange(page: number): void {
-    console.log(`Page changed to ${page} of ${this.totalPages}.`);
-    this.currentPage = page;
+  ngAfterViewInit(): void {
+    this.paginator.page
+      .pipe(
+        tap(() => this.ngOnInit())
+      )
+      .subscribe()
   }
 }

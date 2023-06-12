@@ -16,6 +16,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { CertificatesWithTagsComponent } from './component/certificates-with-tags/certificates-with-tags.component';
 import { GlobalErrorComponent } from './component/global-error/global-error.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { AddNewCertificateComponent } from './component/add-new-certificate/add-new-certificate.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { GlobalErrorComponent } from './component/global-error/global-error.comp
     PaginationComponent,
     CertificatesWithTagsComponent,
     GlobalErrorComponent,
+    AddNewCertificateComponent,
   ],
   providers: [
     {
@@ -37,15 +40,16 @@ import { GlobalErrorComponent } from './component/global-error/global-error.comp
     },
   ],
   bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MenuIconsComponent,
-    BrowserAnimationsModule,
-    ScrollingModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MenuIconsComponent,
+        BrowserAnimationsModule,
+        ScrollingModule,
+        MatPaginatorModule,
+    ],
 })
 export class AppModule {}
