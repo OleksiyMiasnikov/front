@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Certificate } from '../certificate';
-import { CertificatesService } from '../shared/certificates.service';
+import { Certificate } from '../../model/certificate';
+import { GetAllService } from '../../service/get-all.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
@@ -15,10 +15,10 @@ export class CertificatesComponent implements OnInit {
   totalPages = 25;
   size = 10;
 
-  constructor(private service: CertificatesService) {}
+  constructor(private service: GetAllService) {}
 
   ngOnInit(): void {
-    this.service.getAll(this.currentPage, this.size).subscribe((data: any) => {
+    this.service.getAll(this.link, this.currentPage, this.size).subscribe((data: any) => {
       this.certificates = data['content'];
       this.totalPages = data.totalPages;
     });

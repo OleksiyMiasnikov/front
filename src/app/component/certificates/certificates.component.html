@@ -1,4 +1,5 @@
 <div class="container">
+  <app-global-error></app-global-error>
   <div class="table">
     <div class="table-header">
       <div class="header__item">
@@ -38,7 +39,7 @@
           <div class="table-data">{{ item.name }}</div>
           <div class="table-data">{{ item.id }}</div>
           <div class="table-data">{{ item.description }}</div>
-          <div class="table-data">{{ item.price }}</div>
+          <div class="table-data">{{ item.price | currency: 'UAH' }}</div>
           <div class="table-data">
             <button class="bt view">View</button>
             <button class="bt edit">Edit</button>
@@ -52,7 +53,7 @@
     [currentPage]="currentPage"
     [totalPages]="totalPages"
     [link]="link"
-    (changePage)="onPageChange(currentPage + 1)"
+    (click)="onPageChange(currentPage + 1)"
   >
   </app-pagination>
   <p>current page is {{ currentPage }}</p>

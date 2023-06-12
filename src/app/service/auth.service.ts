@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { User } from '../user';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import { User } from '../model/user';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import {catchError, throwError} from "rxjs";
+import {ErrorService} from "./error.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private errorService: ErrorService) {}
 
   login(user: User) {
-    //console.log('auth.login. User: ' + user.username);
-
     return this.http
       .post(
         `${environment.appUrl}/login`,
         { name: user.username, password: user.password },
         { observe: 'response' }
       )
-      .pipe(tap(this.setTokens));
+      .pipe(
+        tap(this.setTokens),
+        catchError(this.errorHandler.bind(this))
+      );
   }
 
   private setTokens(response: any) {
@@ -64,5 +68,10 @@ export class AuthService {
 
   isAuthenticated() {
     return !!this.token;
+  }
+
+  errorHandler(error: HttpErrorResponse){
+    this.errorService.handle(error.message)
+    return throwError(()=>error.message)
   }
 }

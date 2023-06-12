@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../shared/auth.service';
-import { User } from '../user';
+import { AuthService } from '../../service/auth.service';
+import { User } from '../../model/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -39,8 +39,9 @@ export class LoginPageComponent implements OnInit {
       this.form.value.password
     );
     console.log(user);
-    this.auth.login(user).subscribe(() => {
-      this.router.navigate(['/certificates']);
-    });
+    this.auth.login(user)
+      .subscribe(() => {
+        this.router.navigate(['/certificates_with_tags']);
+      });
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="wrapper">
-    <img class="logo" src="assets/img/logo.png" alt="Logo" />
+    <img class="logo" src="../../../assets/img/logo.png" alt="Logo" />
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="row">
         <input formControlName="username" placeholder="username" />
@@ -11,6 +11,9 @@
           formControlName="password"
           placeholder="password"
         />
+      </div>
+      <div class="row">
+        <app-global-error></app-global-error>
       </div>
       <div class="row button">
         <input type="submit" value="Login" />
