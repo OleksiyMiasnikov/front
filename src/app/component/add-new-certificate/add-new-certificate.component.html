@@ -1,1 +1,35 @@
-<p>add-new-certificate works!</p>
+<div class="add_new_container">
+  <div class="add_new_title">
+    Add new certificate
+  </div>
+  <div class="add_new_data">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <label>Title</label>
+        <input formControlName="title" placeholder="Title" />
+      </div>
+      <div class="row description">
+        <label>Description</label>
+        <textarea name="description" rows="5" cols="30"></textarea>
+      </div>
+      <div class="row">
+        <label>Duration</label>
+        <input formControlName="duration" placeholder="Duration" />
+      </div>
+      <div class="row">
+        <label>Price</label>
+        <input formControlName="price" placeholder="Price" />
+      </div>
+      <div class="row">
+        <label>Tags</label>
+        <input formControlName="tags" placeholder="Tag" />
+        <button class="add_button">Add</button>
+      </div>
+      <div class="control_buttons">
+        <button class="button save">Save</button>
+        <button class="button cancel"(click)="cancelPressed()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+

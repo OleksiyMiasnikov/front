@@ -1,0 +1,74 @@
+.add_new_container{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 470px;
+  width: 520px;
+  transform: translate(-50%, -70%);
+  background-color: white;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 10px 5px 5px gray;
+}
+
+.add_new_title{
+  padding: 10px 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: gray;
+  background-color: lightgrey;
+
+}
+
+.row {
+  margin: 20px;
+}
+
+.add_button{
+  position: absolute;
+  right: 25px;
+  width: 40px;
+  padding: 6px;
+  background-color: #04aa6d;
+  border-radius: 5px;
+}
+
+input, textarea{
+  position: absolute;
+  left: 25%;
+  width: 70%;
+  padding: 5px;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px;
+
+}
+
+.description {
+  height: 6rem;
+}
+
+.control_buttons {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  width: 100px;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.save {
+  background-color: #04aa6d;
+}
+.cancel {
+  background-color: lightgray;
+}
+
+
+

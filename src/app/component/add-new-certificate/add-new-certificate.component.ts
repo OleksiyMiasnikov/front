@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-add-new-certificate',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-new-certificate.component.scss']
 })
 export class AddNewCertificateComponent {
+  form!: FormGroup;
+  @Output()
+  isCancelled = new EventEmitter<boolean>();
 
+  submit() {
+    console.log("Submitted!");
+  }
+
+  cancelPressed(){
+    this.isCancelled.emit(false);
+  }
 }

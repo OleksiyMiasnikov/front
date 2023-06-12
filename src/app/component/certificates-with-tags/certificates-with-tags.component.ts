@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {GetAllService} from "../../service/get-all.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
 import {MatPaginator} from "@angular/material/paginator";
@@ -16,9 +16,15 @@ export class CertificatesWithTagsComponent implements OnInit, AfterViewInit{
   certificates: CertificateWithTags[] = [];
   link = '/certificates_with_tags';
   total: number = 0;
+  isPressed: boolean = false;
 
   constructor(private service: GetAllService) {}
 
+
+  isButtonPressed() {
+    console.log("Button pressed + " + this.isPressed);
+    this.isPressed = !this.isPressed;
+  }
   ngOnInit(): void {
     this.service.getAll(
       this.link,

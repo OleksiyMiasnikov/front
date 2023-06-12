@@ -18,6 +18,7 @@ import { CertificatesWithTagsComponent } from './component/certificates-with-tag
 import { GlobalErrorComponent } from './component/global-error/global-error.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { AddNewCertificateComponent } from './component/add-new-certificate/add-new-certificate.component';
+import { HeaderLoginComponent } from './component/header-login/header-login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddNewCertificateComponent } from './component/add-new-certificate/add-
     CertificatesWithTagsComponent,
     GlobalErrorComponent,
     AddNewCertificateComponent,
+    HeaderLoginComponent,
   ],
   providers: [
     {

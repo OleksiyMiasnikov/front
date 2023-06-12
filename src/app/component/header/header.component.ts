@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
+import {isNewCertificatePressed} from "../../common/globals";
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @Output()
+  isPressed = new EventEmitter<boolean>();
 
-  centerX = window.screen.width/2;
-  private centerY = window.screen.height/2;
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService,
+              private router: Router) {}
+
+  isButtonPressed() {
+    this.isPressed.emit(!this.isPressed);
+  }
 
   logout(event: Event) {
     event.preventDefault();
@@ -26,17 +32,5 @@ export class HeaderComponent {
   hasRoute(route: string) {
     return this.router.url.includes(route);
   }
-  popupWindow() {
-    const w = 520;
-    const h = 570;
-    const y = window.outerHeight / 2 + window.screenY - ( h / 2)
-    const x = window.outerWidth / 2 + window.screenX - ( w / 2)
-    return window.open('certificates_with_tags/add_new',
-    '_blank',
-    'location=yes,left=auto, left=' +
-      x + ', top=' +
-      y + ', height=' +
-      h + ',width=' +
-      w + ',scrollbars=yes,status=yes');
-  }
+
 }
