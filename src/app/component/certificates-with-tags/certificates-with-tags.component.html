@@ -1,0 +1,68 @@
+<div class="container">
+  <app-global-error></app-global-error>
+  <div>
+    <input type="text" placeholder="Search...">
+  </div>
+  <div class="table">
+    <div class="table-header">
+      <div class="header__item">
+        <a id="datetime" class="filter__link" href="#"> DATETIME </a>
+      </div>
+      <div class="header__item">
+        <a id="title" class="filter__link filter__link--number" href="#">
+          TITLE
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="tags" class="filter__link filter__link--number" href="#">
+          TAGS
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="description" class="filter__link filter__link--number" href="#">
+          DESCRIPTION
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="price" class="filter__link filter__link--number" href="#">
+          PRICE
+        </a>
+      </div>
+      <div class="header__item">
+        <a id="actions" class="filter__link filter__link--number" href="#">
+          ACTIONS
+        </a>
+      </div>
+    </div>
+
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+      <div class="table-content" *cdkVirtualFor="let item of certificates">
+        <div class="table-row">
+          <div class="table-data">{{ item.createDate }}</div>
+          <div class="table-data">{{ item.name }}</div>
+          <div class="table-data">
+            <div *ngFor="let tag of item.tags" style="display: inline">
+              {{ tag }}
+            </div>
+          </div>
+          <div class="table-data">{{ item.description }}</div>
+          <div class="table-data">{{ item.price | currency: 'UAH' }}</div>
+          <div class="table-data">
+            <button class="bt view">View</button>
+            <button class="bt edit">Edit</button>
+            <button class="bt delete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [link]="link"
+    (changedPage)="onPageChange($event)"
+  >
+  </app-pagination>
+  <p>current page is {{ currentPage }}</p>
+</div>
+
