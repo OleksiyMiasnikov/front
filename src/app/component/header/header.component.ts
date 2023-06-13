@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import {isNewCertificatePressed} from "../../common/globals";
 
 @Component({
   selector: 'app-header',

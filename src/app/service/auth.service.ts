@@ -60,7 +60,7 @@ export class AuthService {
     this.setTokens(null);
   }
 
-  private isTokenExpired(token: String): boolean {
+  isTokenExpired(token: string): boolean {
     console.log('Determining token expiration.');
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
@@ -71,7 +71,9 @@ export class AuthService {
   }
 
   errorHandler(error: HttpErrorResponse){
-    this.errorService.handle(error.message)
-    return throwError(()=>error.message)
+    let obj = JSON.parse(JSON.stringify(error.error));
+    const errorMessage = 'Error: ' + obj.message + '. Code: ' + obj.errorCode;
+    this.errorService.handle(errorMessage);
+    return throwError(()=>errorMessage)
   }
 }

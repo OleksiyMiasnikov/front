@@ -18,7 +18,6 @@
   font-weight: bold;
   color: gray;
   background-color: lightgrey;
-
 }
 
 .row {
@@ -29,9 +28,21 @@
   position: absolute;
   right: 25px;
   width: 40px;
-  padding: 6px;
+  padding: 4px;
   background-color: #04aa6d;
   border-radius: 5px;
+}
+
+.new_tags {
+  display: inline;
+  padding: 2px;
+  margin-right: 5px;
+}
+
+.tags_container {
+  position: absolute;
+  left: 25%;
+  width: 70%;
 }
 
 input, textarea{

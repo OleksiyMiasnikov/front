@@ -22,7 +22,9 @@ export class GetAllService {
   }
 
   errorHandler(error: HttpErrorResponse){
-    this.errorService.handle(error.message)
-    return throwError(()=>error.message)
+    let obj = JSON.parse(JSON.stringify(error.error));
+    const errorMessage = 'Error: ' + obj.message + '. Code: ' + obj.errorCode;
+    this.errorService.handle(errorMessage);
+    return throwError(()=>errorMessage)
   }
 }

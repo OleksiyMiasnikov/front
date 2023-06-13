@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+
   form!: FormGroup;
 
   constructor(public auth: AuthService, private router: Router) {}
@@ -27,7 +28,7 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  submit() {
+submit() {
     console.log(
       'Submitted. Name: ' +
         this.form.value.username +

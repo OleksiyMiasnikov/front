@@ -4,26 +4,27 @@ $half-spacing-unit: 6px;
 $color-alpha: #1772ff;
 $color-form-highlight: #eeeeee;
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
 
-body {
-  padding: $base-spacing-unit;
-  font-family: "Source Sans Pro", sans-serif;
-  margin: 0;
-}
+//*,
+//*:before,
+//*:after {
+//  box-sizing: border-box;
+//}
+////
+//body {
+//  padding: $base-spacing-unit;
+//  font-family: "Source Sans Pro", sans-serif;
+//  margin: 0;
+//}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
+//h1,
+//h2,
+//h3,
+//h4,
+//h5,
+//h6 {
+//  margin: 0;
+//}
 
 .container {
   //background-color: aqua;
@@ -123,12 +124,12 @@ h6 {
   }
 }
 
-.example-viewport {
-  height: 22rem;
+.viewport {
+  height: max(30rem);
   width: 100%;
   border: 1px solid black;
 }
 
-.example-item {
-  height: 50px;
-}
+//.example-item {
+//  height: 50px;
+//}

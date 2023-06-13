@@ -2,6 +2,7 @@
   <div class="add_new_title">
     Add new certificate
   </div>
+  <app-global-error></app-global-error>
   <div class="add_new_data">
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="row">
@@ -10,7 +11,8 @@
       </div>
       <div class="row description">
         <label>Description</label>
-        <textarea name="description" rows="5" cols="30"></textarea>
+        <textarea placeholder="Description..." formControlName="description" rows="5" cols="30" >
+        </textarea>
       </div>
       <div class="row">
         <label>Duration</label>
@@ -23,11 +25,16 @@
       <div class="row">
         <label>Tags</label>
         <input formControlName="tags" placeholder="Tag" />
-        <button class="add_button">Add</button>
+        <button class="add_button" type="button" (click)="addTag()">Add</button>
+      </div>
+      <div class="tags_container">
+        <div class="new_tags" *ngFor="let new_tag of newTags">
+          <button type="button" (click)="deleteTag(new_tag)">{{new_tag}} X</button>
+        </div>
       </div>
       <div class="control_buttons">
-        <button class="button save">Save</button>
-        <button class="button cancel"(click)="cancelPressed()">Cancel</button>
+        <button class="button save" type="submit">Save</button>
+        <button class="button cancel" (click)="cancelPressed()">Cancel</button>
       </div>
     </form>
   </div>
