@@ -54,6 +54,16 @@ body {
   font-size: 20px;
 }
 
+.loading{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  font-size: 22px;
+  font-weight: bold;
+
+}
+
 form .row input:focus {
   border-color: black;
   box-shadow: inset 0px 0px 2px 2px rgba(102, 102, 102, 0.25);

@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   @Output()
-  isPressed = new EventEmitter<boolean>();
+  isNewPressed = new EventEmitter<boolean>();
 
   constructor(public auth: AuthService,
               private router: Router) {}
 
   isButtonPressed() {
-    this.isPressed.emit(!this.isPressed);
+    this.isNewPressed.emit(!this.isNewPressed);
   }
 
   logout(event: Event) {

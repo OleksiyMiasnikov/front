@@ -1,13 +1,13 @@
 <div class="add_new_container">
   <div class="add_new_title">
-    Add new certificate
+    {{pageTitle}}
   </div>
   <app-global-error></app-global-error>
   <div class="add_new_data">
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="row">
         <label>Title</label>
-        <input formControlName="title" placeholder="Title" />
+        <input formControlName="title" placeholder="Title"/>
       </div>
       <div class="row description">
         <label>Description</label>
@@ -22,18 +22,26 @@
         <label>Price</label>
         <input formControlName="price" placeholder="Price" />
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!disabled">
         <label>Tags</label>
         <input formControlName="tags" placeholder="Tag" />
         <button class="add_button" type="button" (click)="addTag()">Add</button>
       </div>
-      <div class="tags_container">
+      <div class="tags_container" *ngIf="!disabled">
         <div class="new_tags" *ngFor="let new_tag of newTags">
-          <button type="button" (click)="deleteTag(new_tag)">{{new_tag}} X</button>
+          <button type="button" (click)="deleteTag(new_tag)">{{new_tag}} x</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="disabled">
+        <label>Tags</label>
+        <div class="list_of_tags">
+          <div class="new_tags" *ngFor="let new_tag of newTags">
+            {{new_tag}}
+          </div>
         </div>
       </div>
       <div class="control_buttons">
-        <button class="button save" type="submit">Save</button>
+        <button class="button save" type="submit" *ngIf="!disabled">Save</button>
         <button class="button cancel" (click)="cancelPressed()">Cancel</button>
       </div>
     </form>

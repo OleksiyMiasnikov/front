@@ -1,5 +1,5 @@
-<app-header (isPressed)="isButtonPressed()"></app-header>
-<div class="container">
+<app-header (isNewPressed)="addNewCertificate()"></app-header>
+<div class="container" >
   <app-global-error></app-global-error>
   <div>
     <input type="text" placeholder="Search...">
@@ -48,9 +48,9 @@
           <div class="table-data">{{ item.description }}</div>
           <div class="table-data">{{ item.price | currency: 'UAH' }}</div>
           <div class="table-data">
-            <button class="bt view">View</button>
-            <button class="bt edit">Edit</button>
-            <button class="bt delete">Delete</button>
+            <button class="bt view" (click)="viewCertificate(item)" >View</button>
+            <button class="bt edit" (click)="editCertificate(item)">Edit</button>
+            <button class="bt delete" (click)="deleteCertificate(item)">Delete</button>
           </div>
         </div>
       </div>
@@ -59,8 +59,17 @@
   <mat-paginator
     [length]="total"
     [pageSize]="10"
-    [pageSizeOptions]="[10,20,50]">
+    [pageSizeOptions]="[10,20,50]"
+    [showFirstLastButtons]="true">
   </mat-paginator>
-  <app-add-new-certificate *ngIf = "isPressed" (isCancelled)="isButtonPressed()"></app-add-new-certificate>
+  <app-add-new-certificate
+    *ngIf = "isPressed"
+    [currentCertificate]="currentCertificate"
+    [pageTitle]="pageTitle"
+    [disabled]="disabled"
+    (inAction)="addNewCertificate()"
+  >
+  </app-add-new-certificate>
 </div>
+<p class="loading" *ngIf="loading">Loading ...</p>
 

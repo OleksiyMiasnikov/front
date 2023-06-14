@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreateService} from "../../service/create.service";
+import {CertificateWithTags} from "../../model/certificate-with-tags";
 
 @Component({
   selector: 'app-add-new-certificate',
@@ -11,29 +12,46 @@ import {CreateService} from "../../service/create.service";
 export class AddNewCertificateComponent implements OnInit{
   form!: FormGroup;
   newTags: string[] = [];
+  @Input()
+  pageTitle: string = '';
+  @Input()
+  currentCertificate!: CertificateWithTags;
+  @Input()
+  disabled: boolean = false;
+
   @Output()
-  isCancelled = new EventEmitter<boolean>();
+  inAction = new EventEmitter<boolean>();
 
   constructor(private service: CreateService) {
   }
   submit() {
     console.log("Submitted!");
-    const json: string = '';
-    this.service.create('/certificates_with_tags',
-      {
-        name: this.form.value.title,
-        tags: this.newTags,
-        description: this.form.value.description,
-        price: this.form.value.price,
-        duration: this.form.value.duration
-      })
-      .subscribe();
-    console.log("Created!");
-    this.isCancelled.emit(false);
+    if (this.currentCertificate.id == 0) {
+      this.service.create('/certificates_with_tags', this.createCertificate())
+        .subscribe();
+      window.location.reload();
+    } else {
+      this.service.update('/certificates_with_tags/' + this.currentCertificate.id, this.createCertificate())
+        .subscribe();
+      window.location.reload();
+    }
+    this.inAction.emit(false);
   }
 
+  createCertificate(): CertificateWithTags {
+    return new CertificateWithTags(
+      this.currentCertificate.id,
+      this.form.value.title,
+      this.newTags,
+      this.form.value.description,
+      this.form.value.price,
+      this.form.value.duration,
+      this.currentCertificate.createDate)
+  }
+
+
   cancelPressed(){
-    this.isCancelled.emit(false);
+    this.inAction.emit(false);
   }
 
   addTag() {
@@ -54,28 +72,29 @@ export class AddNewCertificateComponent implements OnInit{
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      title: new FormControl(null,
+      title: new FormControl({value: this.currentCertificate.name, disabled: this.disabled},
         [
         Validators.required
       ]),
-      description: new FormControl(null,
+      description: new FormControl({value: this.currentCertificate.description, disabled: this.disabled},
         [
           Validators.required
         ]),
-      duration: new FormControl(0,
+      duration: new FormControl({value: this.currentCertificate.duration, disabled: this.disabled},
         [
         Validators.required,
         Validators.min(0)
       ]),
-      price: new FormControl(0.01,
+      price: new FormControl({value: this.currentCertificate.price, disabled: this.disabled},
         [
         Validators.required,
         Validators.min(0.01)
       ]),
-      tags: new FormControl(null,
+      tags: new FormControl({value: null, disabled: this.disabled},
         [
         Validators.required
       ])
     });
+    this.newTags = this.currentCertificate.tags;
   }
 }
