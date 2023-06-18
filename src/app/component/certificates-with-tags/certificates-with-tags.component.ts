@@ -21,7 +21,8 @@ export class CertificatesWithTagsComponent implements OnInit {
   currentPage:number = 1;
   totalPages:number = 10;
   size:number = 10;
-  pages:number[]=[1,2,3,4,5,6,7,8,9];
+  pages:number[]=[];
+  paginatorSize: number = 1;
 
   constructor(private service: GetAllService,
               private deleteService: DeleteService) {}
@@ -66,6 +67,7 @@ export class CertificatesWithTagsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("CWT.ngOnInit. Current page :" + this.currentPage);
+
     this.loading = true;
     this.service.getAll(
       this.link,
@@ -78,6 +80,11 @@ export class CertificatesWithTagsComponent implements OnInit {
           //this.total = data.totalElements;
           this.totalPages = data.totalPages;
           this.loading = false;
+          if (this.totalPages < 9) {
+            this.paginatorSize = this.totalPages;
+          } else {
+            this.paginatorSize = 9;
+          }
         });
     this.pagesChange();
   }
@@ -85,29 +92,40 @@ export class CertificatesWithTagsComponent implements OnInit {
   pagesChange() {
     console.log(`Paginator pagesChange. Current:` + this.currentPage);
     if (this.currentPage < 5 ) {
-      this.pages = [1,2,3,4,5,6,7,8,9];
+      this.pages = this.setPages(this.paginatorSize, 1);
+        //[1,2,3,4,5,6,7,8,9];
     } else if (this.currentPage > this.totalPages - 5) {
-      this.pages = [
-        this.totalPages - 8,
-        this.totalPages - 7,
-        this.totalPages - 6,
-        this.totalPages - 5,
-        this.totalPages - 4,
-        this.totalPages - 3,
-        this.totalPages - 2,
-        this.totalPages - 1,
-        this.totalPages];
+      this.pages = this.setPages(this.paginatorSize, this.totalPages - 8);
+        // [
+        // this.totalPages - 8,
+        // this.totalPages - 7,
+        // this.totalPages - 6,
+        // this.totalPages - 5,
+        // this.totalPages - 4,
+        // this.totalPages - 3,
+        // this.totalPages - 2,
+        // this.totalPages - 1,
+        // this.totalPages];
     } else {
-      this.pages = [
-        this.currentPage - 4,
-        this.currentPage - 3,
-        this.currentPage - 2,
-        this.currentPage - 1,
-        this.currentPage,
-        this.currentPage + 1,
-        this.currentPage + 2,
-        this.currentPage + 3,
-        this.currentPage + 4];
+      this.pages = this.setPages(this.paginatorSize, this.currentPage - 4)
+        // [
+        // this.currentPage - 4,
+        // this.currentPage - 3,
+        // this.currentPage - 2,
+        // this.currentPage - 1,
+        // this.currentPage,
+        // this.currentPage + 1,
+        // this.currentPage + 2,
+        // this.currentPage + 3,
+        // this.currentPage + 4];
     }
+  }
+
+  setPages(length: number, start: number) {
+    const result: number[] = [];
+    for (let i = 0; i < length; i++) {
+      result[i] = start + i;
+    }
+    return result;
   }
 }
