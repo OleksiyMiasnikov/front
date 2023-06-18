@@ -67,7 +67,6 @@ export class CertificatesWithTagsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("CWT.ngOnInit. Current page :" + this.currentPage);
-
     this.loading = true;
     this.service.getAll(
       this.link,
@@ -85,39 +84,18 @@ export class CertificatesWithTagsComponent implements OnInit {
           } else {
             this.paginatorSize = 9;
           }
+          this.pagesChange();
         });
-    this.pagesChange();
   }
 
   pagesChange() {
-    console.log(`Paginator pagesChange. Current:` + this.currentPage);
+    console.log(`Paginator pagesChange. Current:` + this.currentPage + ', paginator size: ' + this.paginatorSize);
     if (this.currentPage < 5 ) {
       this.pages = this.setPages(this.paginatorSize, 1);
-        //[1,2,3,4,5,6,7,8,9];
     } else if (this.currentPage > this.totalPages - 5) {
       this.pages = this.setPages(this.paginatorSize, this.totalPages - 8);
-        // [
-        // this.totalPages - 8,
-        // this.totalPages - 7,
-        // this.totalPages - 6,
-        // this.totalPages - 5,
-        // this.totalPages - 4,
-        // this.totalPages - 3,
-        // this.totalPages - 2,
-        // this.totalPages - 1,
-        // this.totalPages];
     } else {
       this.pages = this.setPages(this.paginatorSize, this.currentPage - 4)
-        // [
-        // this.currentPage - 4,
-        // this.currentPage - 3,
-        // this.currentPage - 2,
-        // this.currentPage - 1,
-        // this.currentPage,
-        // this.currentPage + 1,
-        // this.currentPage + 2,
-        // this.currentPage + 3,
-        // this.currentPage + 4];
     }
   }
 
