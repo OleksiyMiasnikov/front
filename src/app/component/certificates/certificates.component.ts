@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Certificate } from '../../model/certificate';
 import { GetAllService } from '../../service/get-all.service';
-import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-certificates',
@@ -24,8 +23,10 @@ export class CertificatesComponent implements OnInit {
     });
   }
 
-  onPageChange(page: number): void {
-    console.log(`Page changed to ${page} of ${this.totalPages}.`);
-    this.currentPage = page;
+  changePage(newPage: number): void {
+    console.log("changePage loaded");
+    this.currentPage = newPage;
+    this.ngOnInit();
+    console.log("current page :" + this.currentPage);
   }
 }

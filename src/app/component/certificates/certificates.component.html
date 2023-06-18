@@ -53,7 +53,7 @@
     [currentPage]="currentPage"
     [totalPages]="totalPages"
     [link]="link"
-    (click)="onPageChange(currentPage + 1)"
+    (changedPage)="changePage($event)"
   >
   </app-pagination>
   <p>current page is {{ currentPage }}</p>

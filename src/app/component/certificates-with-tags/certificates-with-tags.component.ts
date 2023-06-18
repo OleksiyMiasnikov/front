@@ -1,8 +1,6 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetAllService} from "../../service/get-all.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
-import {MatPaginator} from "@angular/material/paginator";
-import {tap} from "rxjs/operators";
 import {DeleteService} from "../../service/delete.service";
 
 @Component({
@@ -10,22 +8,30 @@ import {DeleteService} from "../../service/delete.service";
   templateUrl: './certificates-with-tags.component.html',
   styleUrls: ['./certificates-with-tags.component.scss']
 })
-export class CertificatesWithTagsComponent implements OnInit, AfterViewInit{
+export class CertificatesWithTagsComponent implements OnInit {
 
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator = <MatPaginator>{};
   certificates: CertificateWithTags[] = [];
   currentCertificate!: CertificateWithTags;
   link: string = '/certificates_with_tags';
-  total: number = 0;
+  //total: number = 0;
   isPressed: boolean = false;
   loading: boolean = false;
   disabled: boolean = false;
   pageTitle: string = '';
+  currentPage:number = 1;
+  totalPages:number = 10;
+  size:number = 10;
+  pages:number[]=[1,2,3,4,5,6,7,8,9];
 
   constructor(private service: GetAllService,
               private deleteService: DeleteService) {}
 
+  changePage(newPage: number){
+    console.log("changePage loaded");
+    this.currentPage = newPage;
+    this.ngOnInit();
+    console.log("current page :" + this.currentPage);
+  }
 
   addNewCertificate() {
     console.log("Button pressed + " + this.isPressed);
@@ -53,31 +59,55 @@ export class CertificatesWithTagsComponent implements OnInit, AfterViewInit{
 
   deleteCertificate(certificate: CertificateWithTags) {
     console.log("deleting certificate with id: " + certificate.id);
-    this.deleteService.delete('/certificates_with_tags/' + certificate.id)
+    this.deleteService.delete(this.link + '/' + certificate.id)
       .subscribe();
     window.location.reload();
   }
 
   ngOnInit(): void {
+    console.log("CWT.ngOnInit. Current page :" + this.currentPage);
     this.loading = true;
     this.service.getAll(
       this.link,
-      this.paginator?.pageIndex ?? 0,
-      this.paginator?.pageSize ?? 10
+      this.currentPage - 1,
+      this.size
     )
       .subscribe(
         (data: any) => {
           this.certificates = data['content'];
-          this.total = data.totalElements;
+          //this.total = data.totalElements;
+          this.totalPages = data.totalPages;
           this.loading = false;
         });
+    this.pagesChange();
   }
 
-  ngAfterViewInit(): void {
-    this.paginator.page
-      .pipe(
-        tap(() => this.ngOnInit())
-      )
-      .subscribe()
+  pagesChange() {
+    console.log(`Paginator pagesChange. Current:` + this.currentPage);
+    if (this.currentPage < 5 ) {
+      this.pages = [1,2,3,4,5,6,7,8,9];
+    } else if (this.currentPage > this.totalPages - 5) {
+      this.pages = [
+        this.totalPages - 8,
+        this.totalPages - 7,
+        this.totalPages - 6,
+        this.totalPages - 5,
+        this.totalPages - 4,
+        this.totalPages - 3,
+        this.totalPages - 2,
+        this.totalPages - 1,
+        this.totalPages];
+    } else {
+      this.pages = [
+        this.currentPage - 4,
+        this.currentPage - 3,
+        this.currentPage - 2,
+        this.currentPage - 1,
+        this.currentPage,
+        this.currentPage + 1,
+        this.currentPage + 2,
+        this.currentPage + 3,
+        this.currentPage + 4];
+    }
   }
 }

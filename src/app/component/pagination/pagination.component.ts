@@ -6,10 +6,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  @Input() currentPage: number = 0;
+  @Input() currentPage!: number;
   @Input() totalPages: number = 0;
   @Input() link: string = '';
-  @Output() changedPage= new EventEmitter<any>();
+  @Output() changedPage= new EventEmitter<number>();
+  @Input() pages:number[]=[1,2,3,4,5,6,7,8,9];
 
   constructor() {}
 
@@ -18,7 +19,9 @@ export class PaginationComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    console.log(`______Page changed to ${page} of ${this.totalPages}.`);
+    console.log(`Paginator onPageChange`);
+    //this.pagesChange();
     this.changedPage.emit(page);
   }
+
 }

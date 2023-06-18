@@ -31,7 +31,7 @@ $color-form-highlight: #eeeeee;
   display: flex;
   width: 100%;
   padding: $half-spacing-unit 0;
-  border-width: 1px;
+  border: 1px;
   border: solid;
   border-color: grey;
   &:nth-of-type(odd) {

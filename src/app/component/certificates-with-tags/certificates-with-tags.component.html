@@ -56,12 +56,20 @@
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
-  <mat-paginator
-    [length]="total"
-    [pageSize]="10"
-    [pageSizeOptions]="[10,20,50]"
-    [showFirstLastButtons]="true">
-  </mat-paginator>
+<!--  <mat-paginator-->
+<!--    [length]="total"-->
+<!--    [pageSize]="10"-->
+<!--    [pageSizeOptions]="[10,20,50]"-->
+<!--    [showFirstLastButtons]="true">-->
+<!--  </mat-paginator>-->
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [pages]="pages"
+    [link]="link"
+    (changedPage)="changePage($event)"
+  >
+  </app-pagination>
   <app-add-new-certificate
     *ngIf = "isPressed"
     [currentCertificate]="currentCertificate"
