@@ -89,4 +89,14 @@ export class CertificatesWithTagsComponent implements OnInit {
     window.location.reload();
   }
 
+  search(pattern: string){
+    console.log("Searching by " + pattern);
+    if (pattern) {
+      this.link = '/certificates_with_tags/search?pattern=' + pattern;
+    } else {
+      this.link = '/certificates_with_tags';
+    }
+    this.ngOnInit();
+  }
+
 }
