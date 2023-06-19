@@ -10,18 +10,47 @@ export class PaginationComponent implements OnInit {
   @Input() totalPages: number = 0;
   @Input() link: string = '';
   @Output() changedPage= new EventEmitter<number>();
-  @Input() pages:number[]=[1,2,3,4,5,6,7,8,9];
+  pages:number[]=[];
 
   constructor() {}
 
   ngOnInit(): void {
     console.log(`Pagination init. Current page :  ${this.currentPage}.`);
+    this.pagesChange();
   }
 
   onPageChange(page: number): void {
     console.log(`Paginator onPageChange`);
-    //this.pagesChange();
     this.changedPage.emit(page);
+  }
+
+  pagesChange() {
+    let paginatorSize;
+    if (this.totalPages < 9) {
+      paginatorSize = this.totalPages;
+    } else {
+      paginatorSize = 9;
+    }
+    console.log(`Paginator pagesChange. Current:` + this.currentPage +
+      ' of ' +
+      this.totalPages +
+      ', paginator size: ' + paginatorSize);
+
+    if (this.currentPage < 5 ) {
+      this.pages = this.setPages(paginatorSize, 1);
+    } else if (this.currentPage > this.totalPages - 5) {
+      this.pages = this.setPages(paginatorSize, this.totalPages - 8);
+    } else {
+      this.pages = this.setPages(paginatorSize, this.currentPage - 4)
+    }
+  }
+
+  setPages(length: number, start: number) {
+    const result: number[] = [];
+    for (let i = 0; i < length; i++) {
+      result[i] = start + i;
+    }
+    return result;
   }
 
 }

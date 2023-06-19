@@ -65,9 +65,9 @@
   <app-pagination
     [currentPage]="currentPage"
     [totalPages]="totalPages"
-    [pages]="pages"
     [link]="link"
     (changedPage)="changePage($event)"
+    *ngIf="!loading"
   >
   </app-pagination>
   <app-add-new-certificate

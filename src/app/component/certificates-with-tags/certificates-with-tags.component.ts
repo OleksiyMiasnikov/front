@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {GetAllService} from "../../service/get-all.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
 import {DeleteService} from "../../service/delete.service";
@@ -8,6 +8,7 @@ import {DeleteService} from "../../service/delete.service";
   templateUrl: './certificates-with-tags.component.html',
   styleUrls: ['./certificates-with-tags.component.scss']
 })
+
 export class CertificatesWithTagsComponent implements OnInit {
 
   certificates: CertificateWithTags[] = [];
@@ -19,10 +20,10 @@ export class CertificatesWithTagsComponent implements OnInit {
   disabled: boolean = false;
   pageTitle: string = '';
   currentPage:number = 1;
-  totalPages:number = 10;
-  size:number = 10;
+  totalPages:number = 1;
+  size:number = 5;
   pages:number[]=[];
-  paginatorSize: number = 1;
+
 
   constructor(private service: GetAllService,
               private deleteService: DeleteService) {}
@@ -79,31 +80,7 @@ export class CertificatesWithTagsComponent implements OnInit {
           //this.total = data.totalElements;
           this.totalPages = data.totalPages;
           this.loading = false;
-          if (this.totalPages < 9) {
-            this.paginatorSize = this.totalPages;
-          } else {
-            this.paginatorSize = 9;
-          }
-          this.pagesChange();
         });
   }
 
-  pagesChange() {
-    console.log(`Paginator pagesChange. Current:` + this.currentPage + ', paginator size: ' + this.paginatorSize);
-    if (this.currentPage < 5 ) {
-      this.pages = this.setPages(this.paginatorSize, 1);
-    } else if (this.currentPage > this.totalPages - 5) {
-      this.pages = this.setPages(this.paginatorSize, this.totalPages - 8);
-    } else {
-      this.pages = this.setPages(this.paginatorSize, this.currentPage - 4)
-    }
-  }
-
-  setPages(length: number, start: number) {
-    const result: number[] = [];
-    for (let i = 0; i < length; i++) {
-      result[i] = start + i;
-    }
-    return result;
-  }
 }
