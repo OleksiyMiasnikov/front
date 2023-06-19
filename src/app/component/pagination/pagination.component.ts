@@ -7,9 +7,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
   @Input() currentPage!: number;
-  @Input() totalPages: number = 0;
+  @Input() totalPages!: number;
+  @Input() size!: number;
   @Input() link: string = '';
   @Output() changedPage= new EventEmitter<number>();
+  @Output() changedSize= new EventEmitter<number>();
   pages:number[]=[];
 
   constructor() {}
@@ -20,8 +22,11 @@ export class PaginationComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    console.log(`Paginator onPageChange`);
     this.changedPage.emit(page);
+  }
+
+  onSizeChange(size:any) {
+    this.changedSize.emit(size);
   }
 
   pagesChange() {

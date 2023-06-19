@@ -22,25 +22,13 @@
   font-weight: bold;
 }
 
-.page-link:hover,
-.page-link:focus {
-  color: #0056b3;
-  text-decoration: none;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
-
-.page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-  cursor: auto;
+select {
+  position: absolute;
+  right: 2rem;
+  bottom: 7rem;
+  color: #007bff;
   background-color: #fff;
-  border-color: #dee2e6;
-}
-
-.page-item.active .page-link {
-  z-index: 1;
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  border: 0px solid #dee2e6;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
 }

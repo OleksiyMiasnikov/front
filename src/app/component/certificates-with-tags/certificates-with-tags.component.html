@@ -65,8 +65,10 @@
   <app-pagination
     [currentPage]="currentPage"
     [totalPages]="totalPages"
+    [size]="size"
     [link]="link"
     (changedPage)="changePage($event)"
+    (changedSize)="changeSize($event)"
     *ngIf="!loading"
   >
   </app-pagination>

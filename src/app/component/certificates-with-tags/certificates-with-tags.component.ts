@@ -21,18 +21,41 @@ export class CertificatesWithTagsComponent implements OnInit {
   pageTitle: string = '';
   currentPage:number = 1;
   totalPages:number = 1;
-  size:number = 5;
+  size:number = 10;
   pages:number[]=[];
 
 
   constructor(private service: GetAllService,
               private deleteService: DeleteService) {}
 
+  ngOnInit(): void {
+    console.log("CWT.ngOnInit. Current page :" + this.currentPage);
+    this.loading = true;
+    this.service.getAll(
+      this.link,
+      this.currentPage - 1,
+      this.size
+    )
+      .subscribe(
+        (data: any) => {
+          this.certificates = data['content'];
+          //this.total = data.totalElements;
+          this.totalPages = data.totalPages;
+          this.loading = false;
+        });
+  }
+
   changePage(newPage: number){
-    console.log("changePage loaded");
+    console.log("Page changed to " + newPage);
     this.currentPage = newPage;
     this.ngOnInit();
-    console.log("current page :" + this.currentPage);
+  }
+
+  changeSize(newSize: number){
+    console.log("Size changed to " + newSize);
+    this.size = newSize;
+    this.currentPage = 1;
+    this.ngOnInit();
   }
 
   addNewCertificate() {
@@ -64,23 +87,6 @@ export class CertificatesWithTagsComponent implements OnInit {
     this.deleteService.delete(this.link + '/' + certificate.id)
       .subscribe();
     window.location.reload();
-  }
-
-  ngOnInit(): void {
-    console.log("CWT.ngOnInit. Current page :" + this.currentPage);
-    this.loading = true;
-    this.service.getAll(
-      this.link,
-      this.currentPage - 1,
-      this.size
-    )
-      .subscribe(
-        (data: any) => {
-          this.certificates = data['content'];
-          //this.total = data.totalElements;
-          this.totalPages = data.totalPages;
-          this.loading = false;
-        });
   }
 
 }
