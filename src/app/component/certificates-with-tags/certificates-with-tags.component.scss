@@ -19,6 +19,12 @@ $color-form-highlight: #eeeeee;
   width: 100%;
 }
 
+.viewport {
+  height: max(60vh);
+  width: 100%;
+  border: 1px solid black;
+}
+
 .table-header {
   display: flex;
   width: 100%;
@@ -97,11 +103,6 @@ $color-form-highlight: #eeeeee;
   }
 }
 
-.viewport {
-  height: max(31rem);
-  width: 100%;
-  border: 1px solid black;
-}
 
 //.example-item {
 //  height: 50px;
