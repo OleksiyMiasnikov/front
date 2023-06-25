@@ -20,8 +20,7 @@ export class HeaderComponent {
 
   logout(event: Event) {
     event.preventDefault();
-    this.auth.logout();
-    this.router.navigate(['/login']);
+    this.auth.logout('');
   }
 
   getUser() {

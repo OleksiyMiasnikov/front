@@ -1,29 +1,27 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaderResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { User } from '../model/user';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {catchError, throwError} from "rxjs";
 import {ErrorService} from "./error.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(private http: HttpClient,
+              private router: Router,
               private errorService: ErrorService) {}
 
   login(user: User) {
     return this.http
-      .post(
-        `${environment.appUrl}/login`,
+      .post(`${environment.appUrl}/login`,
         { name: user.username, password: user.password },
-        { observe: 'response' }
-      )
-      .pipe(
-        tap(this.setTokens),
-        catchError(this.errorHandler.bind(this))
-      );
+        { observe: 'response' })
+      .pipe(tap(this.setTokens),
+        catchError(this.errorHandler.bind(this)));
   }
 
   setTokens(response: any) {
@@ -56,9 +54,15 @@ export class AuthService {
     return localStorage.getItem('access_token');
   }
 
-  logout() {
+  logout(errorMessage: string) {
     console.log('Logout!');
     this.setTokens(null);
+    if (errorMessage) {
+
+      //this.errorService.handle(errorMessage);
+      //throwError(() => errorMessage)
+    }
+    this.router.navigate(['/login']);
   }
 
   isTokenExpired(token: string): boolean {
@@ -73,26 +77,14 @@ export class AuthService {
       ? this.refresh(): token;
   }
 
-
-  async refresh() {
-    console.log("refresh 1")
-    let refreshToken = localStorage.getItem('refresh_token');
-
+  refresh() {
+    console.log("Getting the new refresh token")
+    const refreshToken = localStorage.getItem('refresh_token');
     const headers= new HttpHeaders()
       .set('Authorization', 'Bearer ' + refreshToken);
 
-    console.log("refresh 2")
-    await this.http
-      .get(
-        `${environment.appUrl}/refresh`,
-        { 'headers': headers ,
-          observe: 'response'}
-      )
-      .pipe(
-        tap(this.setTokens),
-        catchError(this.errorHandler.bind(this))
-      ).subscribe();
-    console.log("refresh 4");
+    return this.http.get(`${environment.appUrl}/refresh`,
+        { 'headers': headers, observe: 'response'});
   }
 
   isAuthenticated() {

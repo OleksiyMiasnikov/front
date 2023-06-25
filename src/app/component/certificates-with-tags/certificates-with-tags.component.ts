@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetAllService} from "../../service/get-all.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
 import {DeleteService} from "../../service/delete.service";
@@ -22,7 +22,6 @@ export class CertificatesWithTagsComponent implements OnInit {
   currentPage:number = 1;
   totalPages:number = 1;
   size:number = 10;
-  pages:number[]=[];
 
 
   constructor(private service: GetAllService,
@@ -39,7 +38,6 @@ export class CertificatesWithTagsComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.certificates = data['content'];
-          //this.total = data.totalElements;
           this.totalPages = data.totalPages;
           this.loading = false;
         });
