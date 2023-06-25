@@ -24,6 +24,15 @@ export class AuthService {
         catchError(this.errorHandler.bind(this)));
   }
 
+  signUp(user: User) {
+    return this.http
+      .post(`${environment.appUrl}/signup`,
+        { name: user.username, password: user.password },
+        { observe: 'response' })
+      .pipe(tap(this.setTokens),
+        catchError(this.errorHandler.bind(this)));
+  }
+
   setTokens(response: any) {
     console.log('Setting tokens.');
     if (response) {

@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-submit() {
+  submit() {
     console.log(
       'Submitted. Name: ' +
         this.form.value.username +
