@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaderResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { User } from '../model/user';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -26,7 +26,7 @@ export class AuthService {
       );
   }
 
-  private setTokens(response: any) {
+  setTokens(response: any) {
     console.log('Setting tokens.');
     if (response) {
       const accessToken = response.headers.get('access_token');
@@ -35,7 +35,7 @@ export class AuthService {
       const authorities = JSON.parse(
         window.atob(accessToken.split('.')[1])
       ).authorities;
-      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('access_token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
       localStorage.setItem('authorities', authorities);
       localStorage.setItem('user', name);
@@ -46,6 +46,7 @@ export class AuthService {
   }
 
   get token() {
+    console.log("get token");
     const accessToken = localStorage.getItem('access_token')!;
     if (this.isTokenExpired(accessToken)) {
       console.log('Access token has been expired!');
@@ -64,6 +65,34 @@ export class AuthService {
     console.log('Determining token expiration.');
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
+  }
+
+  checkExpiration(token: any): string {
+    console.log('Checking token expiration.');
+    return this.isTokenExpired(token)
+      ? this.refresh(): token;
+  }
+
+
+  async refresh() {
+    console.log("refresh 1")
+    let refreshToken = localStorage.getItem('refresh_token');
+
+    const headers= new HttpHeaders()
+      .set('Authorization', 'Bearer ' + refreshToken);
+
+    console.log("refresh 2")
+    await this.http
+      .get(
+        `${environment.appUrl}/refresh`,
+        { 'headers': headers ,
+          observe: 'response'}
+      )
+      .pipe(
+        tap(this.setTokens),
+        catchError(this.errorHandler.bind(this))
+      ).subscribe();
+    console.log("refresh 4");
   }
 
   isAuthenticated() {
