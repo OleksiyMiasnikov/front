@@ -15,10 +15,10 @@ import { TokenInterceptorService } from './service/token-interceptor.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { CertificatesWithTagsComponent } from './component/certificates-with-tags/certificates-with-tags.component';
-import { GlobalErrorComponent } from './component/global-error/global-error.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { AddNewCertificateComponent } from './component/add-new-certificate/add-new-certificate.component';
 import { HeaderLoginComponent } from './component/header-login/header-login.component';
+import {AlertComponent} from "./component/alert/alert.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { HeaderLoginComponent } from './component/header-login/header-login.comp
     CertificatesComponent,
     PaginationComponent,
     CertificatesWithTagsComponent,
-    GlobalErrorComponent,
+    AlertComponent,
     AddNewCertificateComponent,
     HeaderLoginComponent,
   ],

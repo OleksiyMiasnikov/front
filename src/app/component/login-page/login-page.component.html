@@ -19,7 +19,7 @@
       <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-form">
         <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
       </div>
-        <app-global-error></app-global-error>
+        <app-alert></app-alert>
       <div class="row button">
         <input type="submit" value="Login" />
       </div>

@@ -30,7 +30,7 @@
         <div *ngIf="submitted && signUpForm.get('confirmPassword')?.errors?.confirmPasswordValidator" class="invalid-form">
           Passwords do not match
         </div>
-        <app-global-error></app-global-error>
+        <app-alert></app-alert>
         <div class="button">
           <input class="cancel-button" (click)="cancelPressed()" value="Cancel">
           <input type="submit" value="Sign Up">

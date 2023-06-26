@@ -1,6 +1,6 @@
 <app-header (isNewPressed)="addNewCertificate()"></app-header>
 <div class="container" >
-  <app-global-error></app-global-error>
+  <app-alert></app-alert>
   <div class="search-element">
     <input #pattern type="text" placeholder="Search...">
     <button (click)="search(pattern.value)">Go</button>
