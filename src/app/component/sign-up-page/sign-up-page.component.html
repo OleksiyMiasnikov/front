@@ -4,29 +4,37 @@
     <div class="title">
       Register
     </div>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-
+    <form [formGroup]="signUpForm" (ngSubmit)="submit()">
         <div class="row">
           <label>User name</label>
           <input formControlName="username">
         </div>
+        <div *ngIf="submitted && signUpForm.get('username')?.errors" class="invalid-form">
+          <div *ngIf="signUpForm.get('username')?.errors?.required || signUpForm.get('username')?.errors?.minlength">
+            Username must contain more than 4 characters
+          </div>
+        </div>
         <div class="row">
           <label>Password</label>
-          <input formControlName="psw" type="password">
+          <input formControlName="password" type="password">
+        </div>
+        <div *ngIf="submitted && signUpForm.get('password')?.errors" class="invalid-form">
+          <div *ngIf="signUpForm.get('password')?.errors?.required || signUpForm.get('password')?.errors?.minlength">
+            Password must contain more than 3 characters
+          </div>
         </div>
         <div class="row">
-          <label>Repeat password</label>
-          <input formControlName="repeat_psw" type="password">
+          <label>Confirm password</label>
+          <input formControlName="confirmPassword" type="password">
         </div>
-      <div class="row" >
+        <div *ngIf="submitted && signUpForm.get('confirmPassword')?.errors?.confirmPasswordValidator" class="invalid-form">
+          Passwords do not match
+        </div>
         <app-global-error></app-global-error>
-      </div>
-
-      <div class="button">
-        <input class="cancel-button" (click)="cancelPressed()" value="Cancel">
-        <input type="submit" value="Sign Up">
-      </div>
-
+        <div class="button">
+          <input class="cancel-button" (click)="cancelPressed()" value="Cancel">
+          <input type="submit" value="Sign Up">
+        </div>
     </form>
   </div>
 </div>

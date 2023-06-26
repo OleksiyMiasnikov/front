@@ -28,9 +28,7 @@ export class AuthService {
     return this.http
       .post(`${environment.appUrl}/signup`,
         { name: user.username, password: user.password },
-        { observe: 'response' })
-      .pipe(tap(this.setTokens),
-        catchError(this.errorHandler.bind(this)));
+        { observe: 'response' });
   }
 
   setTokens(response: any) {

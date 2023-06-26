@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import {catchError, Observable, switchMap, throwError} from 'rxjs';
 import {AuthService} from "./auth.service";
 import {ErrorService} from "./error.service";
+import {environment} from "../../environments/environment";
 
 
 
@@ -49,7 +50,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
     console.log("intercept");
 
-    if (req.headers.get('Authorization') != null) {
+    if (req.url == environment.appUrl+'/signup' || req.url == environment.appUrl+'/refresh') {
       return next.handle(req);
     }
 

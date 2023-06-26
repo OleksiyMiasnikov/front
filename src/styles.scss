@@ -40,7 +40,7 @@ body {
 
 .wrapper form .row {
   height: 35px;
-  margin-bottom: 15px;
+  margin-top: 20px;
   position: relative;
 }
 
@@ -159,4 +159,8 @@ form .button input:hover {
       opacity: 1;
     }
   }
+}
+
+.invalid-form{
+  color: red;
 }

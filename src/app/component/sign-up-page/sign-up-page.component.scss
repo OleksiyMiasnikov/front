@@ -10,23 +10,13 @@
 }
 
 .wrapper form .row {
-  margin-top: 30px;
-}
-
-.wrapper form .column-left {
-  width: 47%;
-  float: left;
-}
-
-.wrapper form .column-right {
-  width: 47%;
-  margin-right: 30px;
-  float: right;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .wrapper form .button input {
   position: relative;
-  margin: 25px 9px 0px 0px;
+  margin: 5px 9px 0px 0px;
   padding: 5px;
   left: 50%;
   width: 22%;
@@ -45,8 +35,3 @@
   font-size: 14px;
 }
 
-.wrapper textarea {
-  border-radius: 5px;
-  align-items: center;
-  border: 1px solid lightgrey;
-}

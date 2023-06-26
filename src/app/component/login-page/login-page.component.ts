@@ -11,19 +11,18 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  form!: FormGroup;
+  loginForm!: FormGroup;
+  submitted = false;
 
   constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.form = new FormGroup({
+    this.loginForm = new FormGroup({
       username: new FormControl(null, [
         Validators.required,
-        Validators.minLength(4),
       ]),
       password: new FormControl(null, [
         Validators.required,
-        Validators.minLength(3),
       ]),
     });
   }
@@ -31,13 +30,17 @@ export class LoginPageComponent implements OnInit {
   submit() {
     console.log(
       'Submitted. Name: ' +
-        this.form.value.username +
+        this.loginForm.value.username +
         ', password: ' +
-        this.form.value.password
+        this.loginForm.value.password
     );
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
     const user: User = new User(
-      this.form.value.username,
-      this.form.value.password
+      this.loginForm.value.username,
+      this.loginForm.value.password
     );
     console.log(user);
     this.auth.login(user)

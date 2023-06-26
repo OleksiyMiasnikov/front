@@ -2,9 +2,12 @@
 <div class="container">
   <div class="wrapper">
     <img class="logo" src="../../../assets/img/logo.png" alt="Logo" />
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
       <div class="row">
         <input formControlName="username" placeholder="username" />
+      </div>
+      <div *ngIf="submitted && loginForm.controls.username.errors" class="invalid-form">
+        <div *ngIf="loginForm.controls.username.errors.required">Username is required</div>
       </div>
       <div class="row">
         <input
@@ -13,9 +16,10 @@
           placeholder="password"
         />
       </div>
-      <div class="row" >
-        <app-global-error></app-global-error>
+      <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-form">
+        <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
       </div>
+        <app-global-error></app-global-error>
       <div class="row button">
         <input type="submit" value="Login" />
       </div>

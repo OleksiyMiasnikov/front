@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {throwError} from "rxjs";
-import {ErrorService} from "../../service/error.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {User} from "../../model/user";
+import {ConfirmPasswordValidator} from "./confirm-password.validator";
 
 @Component({
   selector: 'app-sign-up-page',
@@ -12,52 +11,49 @@ import {User} from "../../model/user";
   styleUrls: ['./sign-up-page.component.scss']
 })
 export class SignUpPageComponent implements OnInit {
-  form!: FormGroup;
+  signUpForm!: FormGroup;
+  submitted = false;
 
   constructor(
     private router: Router,
-    public authService: AuthService,
-    private errorService: ErrorService) {}
+    private fb: FormBuilder,
+    public authService: AuthService) {}
+
   ngOnInit() {
-    this.form = new FormGroup({
-      username: new FormControl(null, [
+    this.signUpForm = this.fb.group({
+      username: ['', [
         Validators.required,
-        Validators.minLength(4),
-      ]),
-      psw: new FormControl(null, [
+        Validators.minLength(4)
+      ]],
+      password: [null, [
         Validators.required,
-        Validators.minLength(3),
-      ]),
-      repeat_psw: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-    });
+        Validators.minLength(3)
+      ]],
+      confirmPassword: [null, [
+        Validators.required
+      ]]
+    },
+      {
+        validator: ConfirmPasswordValidator("password", "confirmPassword")
+      }
+      );
   }
 
   submit() {
-    if (this.form.value.psw != this.form.value.repeat_psw) {
-      console.log('incorrect');
-      this.errorHandler('Passwords do not match');
-    } else {
-      const user = new User(this.form.value.username, this.form.value.psw);
-      console.log('Submitted. Name: ' + user.username + ', password: ' + user.password);
-      this.authService.signUp(user).subscribe();
-      this.router.navigate(['/login']);
+    this.submitted = true;
+    if (this.signUpForm.invalid) {
+      return;
     }
+    const user = new User(this.signUpForm.value.username, this.signUpForm.value.password);
+    console.log('Submitted. Name: ' + user.username + ', password: ' + user.password);
+    this.authService.signUp(user)
+      .subscribe(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
   cancelPressed() {
     this.router.navigate(['/login']);
   }
 
-
-  errorHandler(errorMessage: string){
-    if (errorMessage == '') {
-      this.errorService.clear();
-      return ;
-    }
-    this.errorService.handle(errorMessage);
-    return throwError(()=>errorMessage)
-  }
 }
