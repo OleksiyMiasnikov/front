@@ -50,8 +50,8 @@
           <div class="table-data">{{ item.price | currency: 'UAH' }}</div>
           <div class="table-data">
             <button class="bt view" (click)="viewCertificate(item)" >View</button>
-            <button class="bt edit" (click)="editCertificate(item)">Edit</button>
-            <button class="bt delete" (click)="deleteCertificate(item)">Delete</button>
+            <button *ngIf="isAdmin()" class="bt edit" (click)="editCertificate(item)">Edit</button>
+            <button *ngIf="isAdmin()" class="bt delete" (click)="deleteCertificate(item)">Delete</button>
           </div>
         </div>
       </div>

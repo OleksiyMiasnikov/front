@@ -97,4 +97,8 @@ export class CertificatesWithTagsComponent implements OnInit {
     this.ngOnInit();
   }
 
+  isAdmin(): boolean {
+    return 'ADMIN' === localStorage.getItem('authorities')
+  }
+
 }
