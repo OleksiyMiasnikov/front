@@ -28,7 +28,10 @@ export class AuthService {
     return this.http
       .post(`${environment.appUrl}/signup`,
         { name: user.username, password: user.password },
-        { observe: 'response' });
+        { observe: 'response' })
+      .pipe(
+        catchError(this.errorHandler.bind(this))
+      );
   }
 
   setTokens(response: any) {
