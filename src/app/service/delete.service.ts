@@ -13,7 +13,7 @@ export class DeleteService {
               private errorService: ErrorService) { }
 
   delete(uri: string): Observable<any> {
-    console.log("Creating certificate!");
+    console.log("Deleting certificate!");
     return this.http.delete<any>(`${environment.appUrl}${uri}`)
       .pipe(
         catchError(this.errorHandler.bind(this))

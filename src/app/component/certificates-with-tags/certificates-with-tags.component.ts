@@ -14,6 +14,7 @@ export class CertificatesWithTagsComponent implements OnInit {
   certificates: CertificateWithTags[] = [];
   currentCertificate!: CertificateWithTags;
   link: string = '/certificates_with_tags';
+  tags: string[] = [];
   //total: number = 0;
   isPressed: boolean = false;
   loading: boolean = false;
@@ -30,17 +31,32 @@ export class CertificatesWithTagsComponent implements OnInit {
   ngOnInit(): void {
     console.log("CWT.ngOnInit. Current page :" + this.currentPage);
     this.loading = true;
-    this.service.getAll(
-      this.link,
-      this.currentPage - 1,
-      this.size
-    )
-      .subscribe(
-        (data: any) => {
-          this.certificates = data['content'];
-          this.totalPages = data.totalPages;
-          this.loading = false;
-        });
+    if (this.link == '/certificates_with_tags') {
+      this.service.getAll(
+        this.link,
+        this.currentPage - 1,
+        this.size
+      )
+        .subscribe(
+          (data: any) => {
+            this.certificates = data['content'];
+            this.totalPages = data.totalPages;
+            this.loading = false;
+          });
+    } else {
+      this.service.getByPatternAndListOfTags(
+        this.link,
+        this.tags,
+        this.currentPage - 1,
+        this.size
+      )
+        .subscribe(
+          (data: any) => {
+            this.certificates = data['content'];
+            this.totalPages = data.totalPages;
+            this.loading = false;
+          });
+    }
   }
 
   changePage(newPage: number){
@@ -89,14 +105,13 @@ export class CertificatesWithTagsComponent implements OnInit {
 
   search(pattern: string){
     console.log("Searching by " + pattern);
-    let tags: string[] = [];
     if (pattern.indexOf('#(') > -1) {
-      tags = this.tagsExtractor(pattern);
-      pattern = pattern.substring(0, pattern.indexOf('#(')) ;
+      this.tags = this.tagsExtractor(pattern);
+      pattern = pattern.substring(0, pattern.indexOf('#(')).trim() ;
     }
-    console.log(`Pattern: ${pattern}. Tags: ${tags}`);
-
-    if (pattern) {
+    console.log(`Pattern: ${pattern}. Tags: ${this.tags}`);
+    this.currentPage = 1;
+    if (pattern || this.tags) {
       this.link = '/certificates_with_tags/search?pattern=' + pattern;
     } else {
       this.link = '/certificates_with_tags';

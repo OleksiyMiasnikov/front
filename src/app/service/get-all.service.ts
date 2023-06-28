@@ -23,6 +23,16 @@ export class GetAllService {
       );
   }
 
+  getByPatternAndListOfTags(uri: string, tags: string[], page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${environment.appUrl}${uri}`,
+      {
+        params: new HttpParams().set('tags', tags.join(', ')).set('page', page).set('size', size)
+      })
+      .pipe(
+        catchError(this.errorHandler.bind(this))
+      );
+  }
+
   errorHandler(error: HttpErrorResponse){
     let obj = JSON.parse(JSON.stringify(error.error));
     const errorMessage = 'Error: ' + obj.message + '. Code: ' + obj.errorCode;
