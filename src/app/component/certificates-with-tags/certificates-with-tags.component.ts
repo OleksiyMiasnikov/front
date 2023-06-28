@@ -89,12 +89,49 @@ export class CertificatesWithTagsComponent implements OnInit {
 
   search(pattern: string){
     console.log("Searching by " + pattern);
+    let tags: string[] = [];
+    if (pattern.indexOf('#(') > -1) {
+      tags = this.tagsExtractor(pattern);
+      pattern = pattern.substring(0, pattern.indexOf('#(')) ;
+    }
+    console.log(`Pattern: ${pattern}. Tags: ${tags}`);
+
     if (pattern) {
       this.link = '/certificates_with_tags/search?pattern=' + pattern;
     } else {
       this.link = '/certificates_with_tags';
     }
     this.ngOnInit();
+  }
+
+  tagsExtractor(str: string): string[] {
+    let tags: string[] = [];
+    let i: number = 0;
+    let start: number = str.indexOf('#(');
+    let finish: number = -1;
+    while (start > -1 && str.length > 2) {
+      finish = this.findFinish(str, start);
+      if (finish < 0) {
+        break;
+      }
+      if (start != finish - 2) {
+        tags[i] = str.substring(start + 2, finish);
+        i++;
+      }
+      str = str.substring(finish + 1);
+      start = str.indexOf('#(');
+    }
+
+    return tags;
+  }
+
+  findFinish(str: string, start: number): number{
+    let finish: number = str.indexOf(')');
+    while (finish > -1 && finish < start && str.length > 1) {
+      str = str.substring(finish + 1);
+      finish = str.indexOf(')');
+    }
+    return finish;
   }
 
   isAdmin(): boolean {
