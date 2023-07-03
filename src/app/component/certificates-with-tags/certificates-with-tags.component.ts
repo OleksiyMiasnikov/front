@@ -108,10 +108,12 @@ export class CertificatesWithTagsComponent implements OnInit {
     if (pattern.indexOf('#(') > -1) {
       this.tags = this.tagsExtractor(pattern);
       pattern = pattern.substring(0, pattern.indexOf('#(')).trim() ;
+    } else {
+      this.tags = [];
     }
     console.log(`Pattern: ${pattern}. Tags: ${this.tags}`);
     this.currentPage = 1;
-    if (pattern || this.tags) {
+    if (pattern || this.tags.length > 0) {
       this.link = '/certificates_with_tags/search?pattern=' + pattern;
     } else {
       this.link = '/certificates_with_tags';
