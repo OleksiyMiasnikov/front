@@ -97,10 +97,13 @@ export class CertificatesWithTagsComponent implements OnInit {
   }
 
   deleteCertificate(certificate: CertificateWithTags) {
-    console.log("deleting certificate with id: " + certificate.id);
-    this.deleteService.delete(this.link + '/' + certificate.id)
-      .subscribe();
-    window.location.reload();
+    if(confirm("Are you sure to delete certificate: " + certificate.name)) {
+      console.log("deleting certificate with id: " + certificate.id);
+      this.deleteService.delete(this.link + '/' + certificate.id)
+        .subscribe();
+      window.location.reload();
+    }
+
   }
 
   search(pattern: string){
