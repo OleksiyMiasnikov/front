@@ -8,32 +8,50 @@
   <div class="table">
     <div class="table-header">
       <div class="header__item">
-        <a id="datetime" class="filter__link" href="#"> DATETIME </a>
+        <button class="sort_button" (click)="changeDatetimeSort()">
+          <i class="fa fa-sort-asc" *ngIf="datetimeSort == 1" ></i>
+          <i class="fa fa-sort-desc" *ngIf="datetimeSort == -1" ></i>
+          <i class="fa fa-sort" *ngIf="datetimeSort == 0" ></i>
+          <span> DATETIME </span>
+        </button>
       </div>
       <div class="header__item">
-        <a id="title" class="filter__link filter__link--number" href="#">
-          TITLE
-        </a>
+        <button class="sort_button" (click)="changeTitleSort()">
+          <i class="fa fa-sort-asc" *ngIf="titleSort == 1" ></i>
+          <i class="fa fa-sort-desc" *ngIf="titleSort == -1" ></i>
+          <i class="fa fa-sort" *ngIf="titleSort == 0" ></i>
+          <span >TITLE</span>
+        </button>
       </div>
       <div class="header__item">
-        <a id="tags" class="filter__link filter__link--number" href="#">
-          TAGS
-        </a>
+        <button class="sort_button" (click)="changeTagsSort()">
+          <i class="fa fa-sort-asc" *ngIf="tagsSort == 1" ></i>
+          <i class="fa fa-sort-desc" *ngIf="tagsSort == -1" ></i>
+          <i class="fa fa-sort" *ngIf="tagsSort == 0" ></i>
+          <span>TAGS</span>
+        </button>
       </div>
       <div class="header__item">
-        <a id="description" class="filter__link filter__link--number" href="#">
-          DESCRIPTION
-        </a>
+        <button class="sort_button" (click)="changeDescriptionSort()">
+          <i class="fa fa-sort-asc" *ngIf="descriptionSort == 1" ></i>
+          <i class="fa fa-sort-desc" *ngIf="descriptionSort == -1" ></i>
+          <i class="fa fa-sort" *ngIf="descriptionSort == 0" ></i>
+          <span>DESCRIPTION</span>
+        </button>
       </div>
       <div class="header__item">
-        <a id="price" class="filter__link filter__link--number" href="#">
+        <button class="sort_button" (click)="changePriceSort()">
+          <i class="fa fa-sort-asc" *ngIf="priceSort == 1" ></i>
+          <i class="fa fa-sort-desc" *ngIf="priceSort == -1" ></i>
+          <i class="fa fa-sort" *ngIf="priceSort == 0" ></i>
           PRICE
-        </a>
+        </button>
       </div>
       <div class="header__item">
-        <a id="actions" class="filter__link filter__link--number" href="#">
+        <button class="sort_button">
+          <i class="fa fa-sort"  ></i>
           ACTIONS
-        </a>
+        </button>
       </div>
     </div>
     <cdk-virtual-scroll-viewport itemSize="50" class="viewport">

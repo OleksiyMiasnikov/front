@@ -7,7 +7,6 @@ $color-form-highlight: #eeeeee;
 
 
 .container {
-  //background-color: aqua;
   left: 0;
   top: 3rem;
   padding: 1rem;
@@ -73,9 +72,10 @@ $color-form-highlight: #eeeeee;
   text-align: center;
 }
 
-// .header__item {
-//   text-transform: uppercase;
-// }
+
+ .header__item {
+   color: white;
+ }
 
 .bt {
   width: 3rem;
@@ -98,34 +98,21 @@ $color-form-highlight: #eeeeee;
   background-color: red;
 }
 
-.filter__link {
+.sort_button {
+  background-color: #04aa6d;
   color: white;
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  padding-left: $base-spacing-unit;
-  padding-right: $base-spacing-unit;
-
-  &::after {
-    content: "";
-    position: absolute;
-    right: -($half-spacing-unit * 1.5);
-    color: white;
-    font-size: $half-spacing-unit;
-    top: 50%;
-    transform: translateY(-50%);
+  display: contents;
+  border-width: 0px;
+  height: 2rem;
+  width: 1rem;
+  margin-right: 1rem;
+  .fa {
+    font-size: 22px;
+    color: black;
+    margin-right: 1rem;
   }
-
-  &.desc::after {
-    content: "(desc)";
-  }
-
-  &.asc::after {
-    content: "(asc)";
+  .fa-sort{
+    color:#04aa6d;
   }
 }
 
-
-//.example-item {
-//  height: 50px;
-//}

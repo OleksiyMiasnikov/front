@@ -13,17 +13,36 @@ export class GetAllService {
               private errorService: ErrorService,
               private authService: AuthService) {}
 
-  getAll(uri: string, page: number, size: number): Observable<any> {
+  getAll(uri: string,
+        page: number,
+        size: number,
+        datetimeSort: number,
+        titleSort: number,
+        tagsSort: number,
+        descriptionSort: number,
+        priceSort: number): Observable<any> {
     return this.http.get<any>(`${environment.appUrl}${uri}`,
       {
-        params: new HttpParams().set('page', page).set('size', size)
+        params: new HttpParams()
+          .set('page', page)
+          .set('size', size)
+          .set('sort', 'createDate,DESC')
+          .append('sort', 'price,ASC')
       })
       .pipe(
         catchError(this.errorHandler.bind(this))
       );
   }
 
-  getByPatternAndListOfTags(uri: string, tags: string[], page: number, size: number): Observable<any> {
+  getByPatternAndListOfTags(uri: string,
+                            tags: string[],
+                            page: number,
+                            size: number,
+                            datetimeSort: number,
+                            titleSort: number,
+                            tagsSort: number,
+                            descriptionSort: number,
+                            priceSort: number): Observable<any> {
     return this.http.get<any>(`${environment.appUrl}${uri}`,
       {
         params: new HttpParams().set('tags', tags.join(', ')).set('page', page).set('size', size)
