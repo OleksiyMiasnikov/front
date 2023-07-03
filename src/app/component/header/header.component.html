@@ -4,7 +4,7 @@
     <div class="left_side">
       <div class="header_item">Rest API</div>
       <div class="header_item">
-        <button (click)="isButtonPressed()">
+        <button *ngIf="isAdmin()" (click)="isButtonPressed()">
           Add new
         </button>
       </div>

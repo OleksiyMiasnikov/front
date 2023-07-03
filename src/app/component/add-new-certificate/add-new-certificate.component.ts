@@ -28,12 +28,14 @@ export class AddNewCertificateComponent implements OnInit{
     console.log("Submitted!");
     if (this.currentCertificate.id == 0) {
       this.service.create('/certificates_with_tags', this.createCertificate())
-        .subscribe();
-      window.location.reload();
+        .subscribe(() => {
+          window.location.reload();
+        });
     } else {
       this.service.update('/certificates_with_tags/' + this.currentCertificate.id, this.createCertificate())
-        .subscribe();
-      window.location.reload();
+        .subscribe(() => {
+          window.location.reload();
+        });
     }
     this.inAction.emit(false);
   }

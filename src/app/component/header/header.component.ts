@@ -31,4 +31,8 @@ export class HeaderComponent {
     return this.router.url.includes(route);
   }
 
+  isAdmin(): boolean {
+    return 'ADMIN' === localStorage.getItem('authorities')
+  }
+
 }

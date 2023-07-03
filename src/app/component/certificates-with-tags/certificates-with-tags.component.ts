@@ -90,7 +90,7 @@ export class CertificatesWithTagsComponent implements OnInit {
 
   editCertificate(certificate: CertificateWithTags) {
     console.log("Editing certificate with id: " + certificate.id);
-    this.pageTitle = 'Edit certificate';
+    this.pageTitle = 'Edit certificate with ID=' + certificate.id;
     this.disabled = false;
     this.currentCertificate = certificate;
     this.isPressed = !this.isPressed;
