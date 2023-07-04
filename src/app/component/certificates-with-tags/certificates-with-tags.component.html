@@ -8,42 +8,42 @@
   <div class="table">
     <div class="table-header">
       <div class="header__item">
-        <button class="sort_button" (click)="changeDatetimeSort()">
-          <i class="fa fa-sort-asc" *ngIf="datetimeSort == 1" ></i>
-          <i class="fa fa-sort-desc" *ngIf="datetimeSort == -1" ></i>
-          <i class="fa fa-sort" *ngIf="datetimeSort == 0" ></i>
+        <button class="sort_button" (click)="changeSort('createDate')">
+          <i class="fa fa-sort-asc" *ngIf="sortMap.get('createDate') =='ASC'" ></i>
+          <i class="fa fa-sort-desc" *ngIf="sortMap.get('createDate') =='DESC'" ></i>
+          <i class="fa fa-sort" *ngIf="sortMap.get('createDate') ==''" ></i>
           <span> DATETIME </span>
         </button>
       </div>
       <div class="header__item">
-        <button class="sort_button" (click)="changeTitleSort()">
-          <i class="fa fa-sort-asc" *ngIf="titleSort == 1" ></i>
-          <i class="fa fa-sort-desc" *ngIf="titleSort == -1" ></i>
-          <i class="fa fa-sort" *ngIf="titleSort == 0" ></i>
+        <button class="sort_button" (click)="changeSort('name')">
+          <i class="fa fa-sort-asc" *ngIf="sortMap.get('name') =='ASC'" ></i>
+          <i class="fa fa-sort-desc" *ngIf="sortMap.get('name') =='DESC'" ></i>
+          <i class="fa fa-sort" *ngIf="sortMap.get('name') ==''" ></i>
           <span >TITLE</span>
         </button>
       </div>
       <div class="header__item">
-        <button class="sort_button" (click)="changeTagsSort()">
-          <i class="fa fa-sort-asc" *ngIf="tagsSort == 1" ></i>
-          <i class="fa fa-sort-desc" *ngIf="tagsSort == -1" ></i>
-          <i class="fa fa-sort" *ngIf="tagsSort == 0" ></i>
+        <button class="sort_button" (click)="changeSort('tags')">
+          <i class="fa fa-sort-asc" *ngIf="sortMap.get('tags') =='ASC'" ></i>
+          <i class="fa fa-sort-desc" *ngIf="sortMap.get('tags') =='DESC'" ></i>
+          <i class="fa fa-sort" *ngIf="sortMap.get('tags') ==''" ></i>
           <span>TAGS</span>
         </button>
       </div>
       <div class="header__item">
-        <button class="sort_button" (click)="changeDescriptionSort()">
-          <i class="fa fa-sort-asc" *ngIf="descriptionSort == 1" ></i>
-          <i class="fa fa-sort-desc" *ngIf="descriptionSort == -1" ></i>
-          <i class="fa fa-sort" *ngIf="descriptionSort == 0" ></i>
+        <button class="sort_button" (click)="changeSort('description')">
+          <i class="fa fa-sort-asc" *ngIf="sortMap.get('description') =='ASC'" ></i>
+          <i class="fa fa-sort-desc" *ngIf="sortMap.get('description') =='DESC'" ></i>
+          <i class="fa fa-sort" *ngIf="sortMap.get('description') ==''" ></i>
           <span>DESCRIPTION</span>
         </button>
       </div>
       <div class="header__item">
-        <button class="sort_button" (click)="changePriceSort()">
-          <i class="fa fa-sort-asc" *ngIf="priceSort == 1" ></i>
-          <i class="fa fa-sort-desc" *ngIf="priceSort == -1" ></i>
-          <i class="fa fa-sort" *ngIf="priceSort == 0" ></i>
+        <button class="sort_button" (click)="changeSort('price')">
+          <i class="fa fa-sort-asc" *ngIf="sortMap.get('price') =='ASC'" ></i>
+          <i class="fa fa-sort-desc" *ngIf="sortMap.get('price') =='DESC'" ></i>
+          <i class="fa fa-sort" *ngIf="sortMap.get('price') ==''" ></i>
           PRICE
         </button>
       </div>

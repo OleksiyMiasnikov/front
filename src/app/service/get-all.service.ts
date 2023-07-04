@@ -16,19 +16,16 @@ export class GetAllService {
   getAll(uri: string,
         page: number,
         size: number,
-        datetimeSort: number,
-        titleSort: number,
-        tagsSort: number,
-        descriptionSort: number,
-        priceSort: number): Observable<any> {
-    return this.http.get<any>(`${environment.appUrl}${uri}`,
-      {
-        params: new HttpParams()
-          .set('page', page)
-          .set('size', size)
-          .set('sort', 'createDate,DESC')
-          .append('sort', 'price,ASC')
-      })
+        sortMap: Map<string, string>): Observable<any> {
+
+    let paramsString = 'page=' + page + '&size=' + size;
+    sortMap.forEach((k,v) => {
+      if (k != '') {
+        paramsString = paramsString + '&sort=' + v + ',' + k;
+      }
+    })
+
+    return this.http.get<any>(`${environment.appUrl}${uri}?${paramsString}`)
       .pipe(
         catchError(this.errorHandler.bind(this))
       );
@@ -38,15 +35,20 @@ export class GetAllService {
                             tags: string[],
                             page: number,
                             size: number,
-                            datetimeSort: number,
-                            titleSort: number,
-                            tagsSort: number,
-                            descriptionSort: number,
-                            priceSort: number): Observable<any> {
-    return this.http.get<any>(`${environment.appUrl}${uri}`,
-      {
-        params: new HttpParams().set('tags', tags.join(', ')).set('page', page).set('size', size)
-      })
+                            sortMap: Map<string, string>): Observable<any> {
+
+    let paramsString = 'page=' + page + '&size=' + size;
+    tags.forEach((t) => {
+      paramsString = paramsString + '&tags=' + t;
+    })
+
+    sortMap.forEach((k,v) => {
+      if (k != '') {
+        paramsString = paramsString + '&sort=' + v + ',' + k;
+      }
+    })
+
+    return this.http.get<any>(`${environment.appUrl}${uri}&${paramsString}`)
       .pipe(
         catchError(this.errorHandler.bind(this))
       );

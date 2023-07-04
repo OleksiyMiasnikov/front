@@ -22,15 +22,17 @@ export class CertificatesWithTagsComponent implements OnInit {
   currentPage:number = 1;
   totalPages:number = 1;
   size:number = 10;
-  datetimeSort: number = 1;
-  titleSort: number = 0;
-  descriptionSort: number = 0;
-  tagsSort: number = 0;
-  priceSort: number = 0;
-
+  sortMap: Map<string, string>;
 
   constructor(private service: GetAllService,
-              private deleteService: DeleteService) {}
+              private deleteService: DeleteService) {
+    this.sortMap = new Map<string, string>();
+    this.sortMap.set("createDate", "ASC");
+    this.sortMap.set("name", "");
+    this.sortMap.set("tags", "");
+    this.sortMap.set("description", "");
+    this.sortMap.set("price", "");
+  }
 
   ngOnInit(): void {
     console.log("CWT.ngOnInit. Current page :" + this.currentPage);
@@ -40,11 +42,7 @@ export class CertificatesWithTagsComponent implements OnInit {
         this.link,
         this.currentPage - 1,
         this.size,
-        this.datetimeSort,
-        this.titleSort,
-        this.tagsSort,
-        this.descriptionSort,
-        this.priceSort
+        this.sortMap
       )
         .subscribe(
           (data: any) => {
@@ -58,11 +56,7 @@ export class CertificatesWithTagsComponent implements OnInit {
         this.tags,
         this.currentPage - 1,
         this.size,
-        this.datetimeSort,
-        this.titleSort,
-        this.tagsSort,
-        this.descriptionSort,
-        this.priceSort
+        this.sortMap
       )
         .subscribe(
           (data: any) => {
@@ -172,54 +166,15 @@ export class CertificatesWithTagsComponent implements OnInit {
     return 'ADMIN' === localStorage.getItem('authorities')
   }
 
-  changeDatetimeSort() {
-    if (this.datetimeSort == 0) {
-      this.datetimeSort = -1;
-    } else if (this.datetimeSort == 1) {
-      this.datetimeSort = 0;
+  changeSort(key: string) {
+    if (this.sortMap.get(key) == 'ASC') {
+      this.sortMap.set(key, 'DESC');
+    } else if (this.sortMap.get(key) == 'DESC') {
+      this.sortMap.set(key, '');
     } else {
-      this.datetimeSort = 1;
+      this.sortMap.set(key, 'ASC');
     }
-  }
-
-  changeTitleSort() {
-    if (this.titleSort == 0) {
-      this.titleSort = -1;
-    } else if (this.titleSort == 1) {
-      this.titleSort = 0;
-    } else {
-      this.titleSort = 1;
-    }
-  }
-
-  changeTagsSort() {
-    if (this.tagsSort == 0) {
-      this.tagsSort = -1;
-    } else if (this.tagsSort == 1) {
-      this.tagsSort = 0;
-    } else {
-      this.tagsSort = 1;
-    }
-  }
-
-  changeDescriptionSort() {
-    if (this.descriptionSort == 0) {
-      this.descriptionSort = -1;
-    } else if (this.descriptionSort == 1) {
-      this.descriptionSort = 0;
-    } else {
-      this.descriptionSort = 1;
-    }
-  }
-
-  changePriceSort() {
-    if (this.priceSort == 0) {
-      this.priceSort = -1;
-    } else if (this.priceSort == 1) {
-      this.priceSort = 0;
-    } else {
-      this.priceSort = 1;
-    }
+    this.ngOnInit();
   }
 
 }

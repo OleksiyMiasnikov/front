@@ -17,10 +17,10 @@ export class CertificatesComponent implements OnInit {
   constructor(private service: GetAllService) {}
 
   ngOnInit(): void {
-    this.service.getAll(this.link, this.currentPage, this.size, 0, 0, 0, 0, 0).subscribe((data: any) => {
-      this.certificates = data['content'];
-      this.totalPages = data.totalPages;
-    });
+    // this.service.getAll(this.link, this.currentPage, this.size, ).subscribe((data: any) => {
+    //   this.certificates = data['content'];
+    //   this.totalPages = data.totalPages;
+    // });
   }
 
   changePage(newPage: number): void {
