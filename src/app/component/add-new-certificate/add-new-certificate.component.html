@@ -4,23 +4,43 @@
   </div>
   <app-alert></app-alert>
   <div class="add_new_data">
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="certificateForm" (ngSubmit)="submit()">
       <div class="row">
         <label>Title</label>
         <input formControlName="title" placeholder="Title"/>
+      </div>
+      <div *ngIf="submitted && certificateForm.get('title')?.errors" class="invalid-form row">
+        <div *ngIf="certificateForm.get('title')?.errors?.minlength
+                  || certificateForm.get('title')?.errors?.maxlength
+                  || certificateForm.get('title')?.errors?.required">
+          Title field must not be less than 6 and greater than 30 characters
+        </div>
       </div>
       <div class="row description">
         <label>Description</label>
         <textarea placeholder="Description..." formControlName="description" rows="5" cols="30" >
         </textarea>
       </div>
+      <div *ngIf="submitted && certificateForm.get('description')?.errors" class="invalid-form row">
+        <div *ngIf="certificateForm.get('description')?.errors?.minlength
+                    || certificateForm.get('description')?.errors?.maxlength
+                    || certificateForm.get('description')?.errors?.required">
+          Description field must not be less than 12 and greater than 1000 characters
+        </div>
+      </div>
       <div class="row">
         <label>Duration</label>
         <input formControlName="duration" placeholder="Duration" />
       </div>
+      <div class="invalid-form row" *ngIf="certificateForm.get('duration')?.errors?.pattern">
+        Duration must be integer
+      </div>
       <div class="row">
         <label>Price</label>
         <input formControlName="price" placeholder="Price" />
+      </div>
+      <div class="invalid-form row" *ngIf="certificateForm.get('price')?.errors?.pattern">
+        Price must be currency format
       </div>
       <div class="row" *ngIf="!disabled">
         <label>Tags</label>
@@ -41,6 +61,8 @@
         </div>
       </div>
       <div class="control_buttons">
+<!--        <input type="submit" class="button save" value="Save" *ngIf="!disabled">-->
+<!--        <input class="cancel-button" (click)="cancelPressed()" value="Cancel">-->
         <button class="button save" type="submit" *ngIf="!disabled">Save</button>
         <button class="button cancel" (click)="cancelPressed()">Cancel</button>
       </div>

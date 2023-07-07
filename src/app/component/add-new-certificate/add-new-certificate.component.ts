@@ -10,7 +10,8 @@ import {CertificateWithTags} from "../../model/certificate-with-tags";
 })
 
 export class AddNewCertificateComponent implements OnInit{
-  form!: FormGroup;
+  certificateForm!: FormGroup;
+  submitted = false;
   newTags: string[] = [];
   @Input()
   pageTitle: string = '';
@@ -26,6 +27,11 @@ export class AddNewCertificateComponent implements OnInit{
   }
   submit() {
     console.log("Submitted!");
+    this.submitted = true;
+    if (this.certificateForm.invalid) {
+      console.log("Errors: " + this.certificateForm.errors);
+      return;
+    }
     if (this.currentCertificate.id == 0) {
       this.service.create('/certificates_with_tags', this.createCertificate())
         .subscribe(() => {
@@ -43,11 +49,11 @@ export class AddNewCertificateComponent implements OnInit{
   createCertificate(): CertificateWithTags {
     return new CertificateWithTags(
       this.currentCertificate.id,
-      this.form.value.title,
+      this.certificateForm.value.title,
       this.newTags,
-      this.form.value.description,
-      this.form.value.price,
-      this.form.value.duration,
+      this.certificateForm.value.description,
+      this.certificateForm.value.price,
+      this.certificateForm.value.duration,
       this.currentCertificate.createDate)
   }
 
@@ -57,9 +63,9 @@ export class AddNewCertificateComponent implements OnInit{
   }
 
   addTag() {
-    console.log('Adding tag: ' + this.form.value.tags);
-    this.newTags.push(this.form.value.tags);
-    this.form.get('tags')?.reset();
+    console.log('Adding tag: ' + this.certificateForm.value.tags);
+    this.newTags.push(this.certificateForm.value.tags);
+    this.certificateForm.get('tags')?.reset();
     console.log('Tags: ' + this.newTags);
   }
 
@@ -73,28 +79,36 @@ export class AddNewCertificateComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
+    this.certificateForm = new FormGroup({
       title: new FormControl({value: this.currentCertificate.name, disabled: this.disabled},
         [
-        Validators.required
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30)
       ]),
       description: new FormControl({value: this.currentCertificate.description, disabled: this.disabled},
         [
-          Validators.required
+          Validators.required,
+          Validators.minLength(12),
+          Validators.maxLength(1000)
         ]),
       duration: new FormControl({value: this.currentCertificate.duration, disabled: this.disabled},
         [
-        Validators.required,
-        Validators.min(0)
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern('[0-9]+')
       ]),
       price: new FormControl({value: this.currentCertificate.price, disabled: this.disabled},
         [
-        Validators.required,
-        Validators.min(0.01)
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern('[0-9]*(\\.)?([0-9]{1,2})?')
       ]),
       tags: new FormControl({value: null, disabled: this.disabled},
         [
-        Validators.required
+          //Validators.required,
+          // Validators.minLength(3),
+          // Validators.maxLength(15)
       ])
     });
     this.newTags = this.currentCertificate.tags;
