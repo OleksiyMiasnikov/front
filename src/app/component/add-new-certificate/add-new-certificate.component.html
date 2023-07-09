@@ -32,21 +32,43 @@
         <label>Duration</label>
         <input formControlName="duration" placeholder="Duration" />
       </div>
-      <div class="invalid-form row" *ngIf="certificateForm.get('duration')?.errors?.pattern">
-        Duration must be integer
+      <div *ngIf="submitted && certificateForm.get('duration')?.errors" class="invalid-form row">
+        <div class="invalid-form row" *ngIf="certificateForm.get('duration')?.errors?.pattern">
+          Duration must be integer
+        </div>
+        <div class="invalid-form row" *ngIf="certificateForm.get('duration')?.errors?.required">
+          Duration field must not be empty
+        </div>
       </div>
       <div class="row">
         <label>Price</label>
         <input formControlName="price" placeholder="Price" />
       </div>
-      <div class="invalid-form row" *ngIf="certificateForm.get('price')?.errors?.pattern">
-        Price must be currency format
+      <div *ngIf="submitted && certificateForm.get('price')?.errors" class="invalid-form row">
+        <div class="invalid-form row" *ngIf="certificateForm.get('price')?.errors?.pattern">
+          Price must be currency format
+        </div>
+        <div class="invalid-form row" *ngIf="certificateForm.get('price')?.errors?.min">
+          Price must be more than 0
+        </div>
+        <div class="invalid-form row" *ngIf="certificateForm.get('price')?.errors?.required">
+          Price field must not be empty
+        </div>
       </div>
+
       <div class="row" *ngIf="!disabled">
         <label>Tags</label>
         <input formControlName="tags" placeholder="Tag" />
         <button class="add_button" type="button" (click)="addTag()">Add</button>
       </div>
+
+      <div *ngIf="addingTag && certificateForm.get('tags')?.errors" class="invalid-form row">
+        <div *ngIf="certificateForm.get('tags')?.errors?.minlength
+                    || certificateForm.get('tags')?.errors?.maxlength">
+          Tag name should be not less than 3 and greater than 15 characters
+        </div>
+      </div>
+
       <div class="tags_container" *ngIf="!disabled">
         <div class="new_tags" *ngFor="let new_tag of newTags">
           <button type="button" (click)="deleteTag(new_tag)">{{new_tag}} x</button>

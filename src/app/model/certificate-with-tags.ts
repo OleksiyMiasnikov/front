@@ -4,7 +4,7 @@ export class CertificateWithTags {
     public name: string = '',
     public tags: string[] = [],
     public description: string = '',
-    public price: number = 0,
+    public price: number = 0.01,
     public duration: number = 0,
     public createDate: string = '',
     public lastUpdateDate: string = ''

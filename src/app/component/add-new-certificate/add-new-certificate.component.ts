@@ -12,6 +12,7 @@ import {CertificateWithTags} from "../../model/certificate-with-tags";
 export class AddNewCertificateComponent implements OnInit{
   certificateForm!: FormGroup;
   submitted = false;
+  addingTag = false;
   newTags: string[] = [];
   @Input()
   pageTitle: string = '';
@@ -64,9 +65,15 @@ export class AddNewCertificateComponent implements OnInit{
 
   addTag() {
     console.log('Adding tag: ' + this.certificateForm.value.tags);
+    this.addingTag = true;
+    if (this.certificateForm.get('tags')?.invalid) {
+      console.log("Errors: " + this.certificateForm.errors);
+      return;
+    }
     this.newTags.push(this.certificateForm.value.tags);
     this.certificateForm.get('tags')?.reset();
     console.log('Tags: ' + this.newTags);
+    this.addingTag = false;
   }
 
   deleteTag(tag: string) {
@@ -101,14 +108,14 @@ export class AddNewCertificateComponent implements OnInit{
       price: new FormControl({value: this.currentCertificate.price, disabled: this.disabled},
         [
           Validators.required,
-          Validators.min(0),
+          Validators.min(0.01),
           Validators.pattern('[0-9]*(\\.)?([0-9]{1,2})?')
       ]),
       tags: new FormControl({value: null, disabled: this.disabled},
         [
           //Validators.required,
-          // Validators.minLength(3),
-          // Validators.maxLength(15)
+          Validators.minLength(3),
+          Validators.maxLength(15)
       ])
     });
     this.newTags = this.currentCertificate.tags;
