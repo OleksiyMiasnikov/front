@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreateService} from "../../service/create.service";
 import {CertificateWithTags} from "../../model/certificate-with-tags";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-add-new-certificate',
@@ -76,6 +77,13 @@ export class AddNewCertificateComponent implements OnInit{
     this.addingTag = false;
   }
 
+  drop(event: CdkDragDrop<any>){
+    console.log(event.previousIndex + ' >> ' + event.currentIndex);
+    moveItemInArray(this.newTags, event.previousIndex, event.currentIndex);
+    console.log(this.newTags);
+
+  }
+
   deleteTag(tag: string) {
     console.log('Deleting tag: ' + tag);
     const index = this.newTags.indexOf(tag, 0);
@@ -84,6 +92,7 @@ export class AddNewCertificateComponent implements OnInit{
     }
     console.log('Tags: ' + this.newTags);
   }
+
 
   ngOnInit(): void {
     this.certificateForm = new FormGroup({
@@ -118,6 +127,6 @@ export class AddNewCertificateComponent implements OnInit{
           Validators.maxLength(15)
       ])
     });
-    this.newTags = this.currentCertificate.tags;
+    this.newTags = Array.from(this.currentCertificate.tags);
   }
 }

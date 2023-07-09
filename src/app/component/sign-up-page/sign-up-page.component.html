@@ -11,8 +11,10 @@
           <input formControlName="username">
         </div>
         <div *ngIf="submitted && signUpForm.get('username')?.errors" class="invalid-form">
-          <div *ngIf="signUpForm.get('username')?.errors?.required || signUpForm.get('username')?.errors?.minlength">
-            Username must contain more than 4 characters
+          <div *ngIf="signUpForm.get('username')?.errors?.required ||
+                      signUpForm.get('username')?.errors?.minlength ||
+                      signUpForm.get('username')?.errors?.maxlength">
+            Login length must not be less than 3 characters and greater than 30 characters
           </div>
         </div>
         <div class="row">
@@ -20,8 +22,10 @@
           <input formControlName="password" type="password">
         </div>
         <div *ngIf="submitted && signUpForm.get('password')?.errors" class="invalid-form">
-          <div *ngIf="signUpForm.get('password')?.errors?.required || signUpForm.get('password')?.errors?.minlength">
-            Password must contain more than 3 characters
+          <div *ngIf="signUpForm.get('password')?.errors?.required ||
+                      signUpForm.get('password')?.errors?.minlength ||
+                      signUpForm.get('password')?.errors?.maxlength">
+            Password length must not be less than 4 characters and greater than 30 characters
           </div>
         </div>
         <div class="row">

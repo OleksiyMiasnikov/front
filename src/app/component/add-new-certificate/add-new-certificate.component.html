@@ -69,15 +69,16 @@
         </div>
       </div>
 
-      <div class="tags_container" *ngIf="!disabled">
-        <div class="new_tags" *ngFor="let new_tag of newTags">
+      <div cdkDropList class="tags_container" *ngIf="!disabled" (cdkDropListDropped)="drop($event)">
+        <div class="new_tags" *ngFor="let new_tag of newTags" cdkDrag>
           <button type="button" (click)="deleteTag(new_tag)">{{new_tag}} x</button>
         </div>
       </div>
+
       <div class="row" *ngIf="disabled">
         <label>Tags</label>
-        <div class="list_of_tags">
-          <div class="new_tags" *ngFor="let new_tag of newTags">
+        <div  class="list_of_tags">
+          <div class="new_tags" *ngFor="let new_tag of newTags" >
             {{new_tag}}
           </div>
         </div>

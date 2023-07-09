@@ -23,11 +23,13 @@ export class SignUpPageComponent implements OnInit {
     this.signUpForm = this.fb.group({
       username: ['', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(3),
+        Validators.maxLength(30)
       ]],
       password: [null, [
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(4),
+        Validators.maxLength(30)
       ]],
       confirmPassword: [null, [
         Validators.required

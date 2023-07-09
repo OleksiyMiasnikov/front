@@ -33,21 +33,23 @@ export class PaginationComponent implements OnInit {
     let paginatorSize;
     if (this.totalPages < 9) {
       paginatorSize = this.totalPages;
+      this.pages = this.setPages(paginatorSize, 1);
     } else {
       paginatorSize = 9;
+      if (this.currentPage < 5 ) {
+        this.pages = this.setPages(paginatorSize, 1);
+      } else if (this.currentPage > this.totalPages - 5) {
+        this.pages = this.setPages(paginatorSize, this.totalPages - 8);
+      } else {
+        this.pages = this.setPages(paginatorSize, this.currentPage - 4)
+      }
     }
     console.log(`Paginator pagesChange. Current:` + this.currentPage +
       ' of ' +
       this.totalPages +
-      ', paginator size: ' + paginatorSize);
-
-    if (this.currentPage < 5 ) {
-      this.pages = this.setPages(paginatorSize, 1);
-    } else if (this.currentPage > this.totalPages - 5) {
-      this.pages = this.setPages(paginatorSize, this.totalPages - 8);
-    } else {
-      this.pages = this.setPages(paginatorSize, this.currentPage - 4)
-    }
+      ', paginator size: ' +
+      paginatorSize
+    );
   }
 
   setPages(length: number, start: number) {
